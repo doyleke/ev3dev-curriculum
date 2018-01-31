@@ -31,15 +31,20 @@ def main():
 
     time_s = 1  # Any value other than 0.
     while time_s != 0:
-        speed = int(input("Enter a speed for the left motor (0 to 900 dps): "))
-        distance = int(input("Enter a distance to travel (inches): "))
-        left_motor.run_forever(speed_sp=speed)
-        right_motor.run_forever(speed_sp=speed)
-        time.sleep(distance/(speed*0.012))
-        left_motor.stop()
-        right_motor.stop(stop_action="brake")
+        inches_target = int(input("Enter a position for the robot (inches): "))
+        speed_sp = int(input('Enter a speed for the robot (dps):'))
+        stop_action = 'brake'
+        degrees_per_inch = 90
+        motor_turns_needed_in_degrees = inches_target * degrees_per_inch
+        position_sp = motor_turns_needed_in_degrees
 
-        ev3.Sound.beep(10).wait()
+        left_motor.run_to_rel_pos(position_sp=position_sp, speed_sp=speed_sp,
+                                  stop_action=stop_action)
+        right_motor.run_to_rel_pos(position_sp=position_sp, speed_sp=speed_sp,
+                                   stop_action=stop_action)
+
+        left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        ev3.Sound.beep().wait()
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
@@ -80,4 +85,4 @@ def main():
 #
 # Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
 
-
+main()

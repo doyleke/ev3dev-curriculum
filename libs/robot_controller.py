@@ -25,6 +25,9 @@ class Snatch3r(object):
 
         assert self.left_motor.connected
         assert self.right_motor.connected
+
+    def run_rel_pos(self):
+
     
     # TODO: Implement the Snatch3r class as needed when working the sandox exercises
-    # (and delete these comments)
+
