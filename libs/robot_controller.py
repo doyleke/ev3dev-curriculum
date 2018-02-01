@@ -26,7 +26,14 @@ class Snatch3r(object):
         assert self.left_motor.connected
         assert self.right_motor.connected
 
-    def run_rel_pos(self):
+    def drive_inches(self, inches_target, speed_deg):
+
+        inches_target = inches_target
+        motor_turns = inches_target*90
+        speed_deg = speed_deg
+
+        self.run_to_relative_position(position_sp=motor_turns,
+                                      speed_sp=speed_deg, stop_action='brake')
 
     
     # TODO: Implement the Snatch3r class as needed when working the sandox exercises
