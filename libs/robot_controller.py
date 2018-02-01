@@ -48,5 +48,6 @@ class Snatch3r(object):
                                             stop_action='brake')
             self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
-    # TODO: Implement the Snatch3r class as needed when working the sandox exercises
+    # DONE: Implement the Snatch3r class as needed when working the sandox
+            # exercises
 
