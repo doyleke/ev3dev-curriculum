@@ -32,9 +32,10 @@ class Snatch3r(object):
         motor_turns = inches_target*90
         speed_deg = speed_deg
 
-        self.run_to_relative_position(position_sp=motor_turns,
+        self.right_motor.run_to_rel_pos(position_sp=motor_turns,
                                       speed_sp=speed_deg, stop_action='brake')
-
+        self.left_motor.run_to_rel_pos(position_sp = motor_turns, speed_sp =
+        speed_deg, stop_action = 'brake')
     
     # TODO: Implement the Snatch3r class as needed when working the sandox exercises
 
