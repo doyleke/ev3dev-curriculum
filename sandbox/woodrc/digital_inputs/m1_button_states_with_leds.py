@@ -78,13 +78,13 @@ def main():
 
         if btn.left():
             print('heyo lefteroonie')
-            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
-            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[1])
+            ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[0])
 
         if btn.right():
             print('righty tighty')
-            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
-            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+            ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[0])
+            ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[2])
 
 
 
