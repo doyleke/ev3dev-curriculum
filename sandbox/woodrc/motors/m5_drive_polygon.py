@@ -40,8 +40,8 @@ def main():
 
         for k in range(sides):
             robot.drive_inches(edge_length_in,
-                               speed_deg_per_second).wait_while(ev3.Motor.STATE_RUNNING)
-            robot.turn_degrees(turn_amount, speed_deg_per_second).wait_while(ev3.Motor.STATE_RUNNING)
+                               speed_deg_per_second)
+            robot.turn_degrees(turn_amount, speed_deg_per_second)
 
 
         # DONE 3. Call over a TA or instructor to sign your team's checkoff
