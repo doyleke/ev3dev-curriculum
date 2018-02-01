@@ -36,6 +36,22 @@ class Snatch3r(object):
                                       speed_sp=speed_deg, stop_action='brake')
         self.left_motor.run_to_rel_pos(position_sp = motor_turns, speed_sp =
         speed_deg, stop_action = 'brake')
-    
+
+    def turn_degrees(self, degrees_to_turn, turn_speed_sp):
+
+        if degrees_to_turn >= 0:
+            self.left_motor.run_to_rel_pos(speed_sp = turn_speed_sp, position_sp
+            = degrees_to_turn, brake_action = 'brake')
+            self.right_motor.run_to_rel_pos(speed_sp = -turn_speed_sp,
+                                            position_sp = degrees_to_turn,
+                                            brake_action = 'brake').wait_while(ev3.Motor.STATE_RUNNING)
+        else:
+            self.left_motor.run_to_rel_pos(speed_sp = -turn_speed_sp,
+                                           position_sp
+            = degrees_to_turn, brake_action = 'brake')
+            self.right_motor.run_to_rel_pos(speed_sp = turn_speed_sp,
+                                            position_sp = degrees_to_turn,
+                                            brake_action = 'brake').wait_while(ev3.Motor.STATE_RUNNING)
+
     # TODO: Implement the Snatch3r class as needed when working the sandox exercises
 
