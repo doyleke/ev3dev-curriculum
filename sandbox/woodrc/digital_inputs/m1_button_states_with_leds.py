@@ -76,12 +76,12 @@ def main():
             print('up up up and away')
             ev3.Leds.all_off()
 
-        if btn.left():
+        if btn.left:
             print('heyo lefteroonie')
             ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[1])
             ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[0])
 
-        if btn.right():
+        if btn.right:
             print('righty tighty')
             ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[0])
             ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[2])
