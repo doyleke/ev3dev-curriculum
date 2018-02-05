@@ -64,6 +64,10 @@ def main():
     # Using lambda call the function handle_shutdown passing in the state and dc
     # Note: the function handle_shutdown does not exist yet, you will write it in todo6.
 
+    btn.on_backspace = lambda state:\
+        handle_shutdown(state, dc)
+
+
     while dc.running:
         btn.process()  # This command is VERY important when using button callbacks!
         time.sleep(0.01)  # A short delay is important to allow other things to happen.
@@ -132,6 +136,12 @@ def handle_right_button(button_state):
 #    "Press Ctrl C on your keyboard to exit this program (the Back button is not wired up to exit)"
 # to instead say "Press Back to exit this program."
 
+def handle_shutdown(button_state, dc):
+    if button_state:
+        print("Back button is pressed")
+        dc.running = False
+    else:
+        print("Back button was released")
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
