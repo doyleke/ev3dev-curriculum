@@ -45,7 +45,7 @@ def main():
     # Buttons on EV3 (we keep giving you this line, but you could have typed it)
     btn = ev3.Button()
 
-    # TODO: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
+    # DONE: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
     #   .on_up to call handle_up_button (that function already exist below, you will modify it in todo4)
     #   .on_down to call handle_down_button (that function does not exist yet, you will write it in todo4)
     #   .on_left to call handle_left_button (that function does not exist yet, you will write it in todo4)
@@ -57,7 +57,8 @@ def main():
     btn.on_left = handle_left_button
     btn.on_right = handle_right_button
 
-    # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
+    # DONE: 5. Note #4 is lower (this is TO DO #5 which you should do after
+    # #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
     #   btn.on_backspace = lamdba predefined_inputs: function_name(parameters)
     # You will need to change the predefined_inputs, function_name, and parameters from that syntax template.
@@ -95,6 +96,7 @@ def main():
 def handle_up_button(button_state):
     """Handle IR / button event."""
     if button_state:
+        play_song_by_individual_tones()
         print("Up button is pressed")
     else:
         print("Up button was released")
@@ -103,6 +105,7 @@ def handle_up_button(button_state):
 def handle_down_button(button_state):
     """Handle IR / button event."""
     if button_state:
+        play_song_by_notes_list()
         print("Down button is pressed")
     else:
         print("Down button was released")
@@ -111,6 +114,7 @@ def handle_down_button(button_state):
 def handle_left_button(button_state):
     """Handle IR / button event."""
     if button_state:
+        speak()
         print("Left button is pressed")
     else:
         print("Left button was released")
@@ -119,6 +123,7 @@ def handle_left_button(button_state):
 def handle_right_button(button_state):
     """Handle IR / button event."""
     if button_state:
+        play_wav_file()
         print("Right button is pressed")
     else:
         print("Right button was released")
