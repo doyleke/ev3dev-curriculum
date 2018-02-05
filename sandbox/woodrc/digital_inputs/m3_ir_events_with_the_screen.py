@@ -162,6 +162,7 @@ def handle_red_up_1(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.angry_eyes)
+        print("handle red up 1 pressed")
 
 
 def handle_red_down_1(button_state, dc):
@@ -174,6 +175,7 @@ def handle_red_down_1(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.puppy_dog_eyes)
+        print("handle red down 1 pressed")
 
 
 def handle_blue_up_1(button_state, dc):
@@ -186,6 +188,7 @@ def handle_blue_up_1(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.sad_eyes)
+        print("handle blue up 1 pressed")
 
 
 def handle_blue_down_1(button_state, dc):
@@ -198,6 +201,7 @@ def handle_blue_down_1(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.shifty_eyes)
+        print("handle blue down 1 pressed")
 
 
 def handle_red_up_2(button_state, dc):
@@ -210,6 +214,7 @@ def handle_red_up_2(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.progress_0)
+        print("handle red up 2 pressed")
 
 
 def handle_red_up_3(button_state, dc):
@@ -222,6 +227,7 @@ def handle_red_up_3(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.progress_50)
+        print("handle red up 3 pressed")
 
 
 def handle_red_up_4(button_state, dc):
@@ -234,6 +240,7 @@ def handle_red_up_4(button_state, dc):
     """
     if button_state:
         display_image(dc.lcd_screen, dc.progress_100)
+        print("handle red up 4 pressed")
 
 
 # ----------------------------------------------------------------------
