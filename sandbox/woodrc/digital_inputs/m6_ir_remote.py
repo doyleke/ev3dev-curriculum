@@ -57,7 +57,12 @@ def main():
     ev3.Leds.all_off()  # Turn the leds off
     robot = robo.Snatch3r()
     dc = DataContainer()
-    btn = ev3.Button()
+    #btn = ev3.Button()
+
+    rc1 = ev3.RemoteControl(channel=1)
+    #rc2 = ev3.RemoteControl(channel=2)
+    #rc3 = ev3.RemoteControl(channel=3)
+    #rc4 = ev3.RemoteControl(channel=4)
 
 
     # TODO: 4. Add the necessary IR handler callbacks as per the instructions above.
@@ -66,11 +71,11 @@ def main():
 
     # For our standard shutdown button.
     btn = ev3.Button()
-    robot.rc1.on_red_up = lambda state: forward_left_motor(state, dc)
-    robot.rc1.on_red_down = lambda state: back_left_motor(state, dc)
-    robot.rc1.on_blue_up = lambda state: forward_right_motor(state, dc)
-    robot.rc1.on_blue_down = lambda state: back_right_motor(state, dc)
-    robot.rc1.on_backspace = lambda state: handle_shutdown(state, dc)
+    rc1.on_red_up = lambda state: forward_left_motor(state, dc)
+    rc1.on_red_down = lambda state: back_left_motor(state, dc)
+    rc1.on_blue_up = lambda state: forward_right_motor(state, dc)
+    rc1.on_blue_down = lambda state: back_right_motor(state, dc)
+    rc1.on_backspace = lambda state: handle_shutdown(state, dc)
 
     robot.arm_calibration()  # Start with an arm calibration in this program.
 
@@ -87,7 +92,7 @@ def main():
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
     # Once the library is implemented any team member should be able to run his code as stated in todo3.
-    robot.shutdown()
+    #robot.shutdown()
 
 # ----------------------------------------------------------------------
 # Event handlers
