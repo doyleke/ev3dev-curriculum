@@ -33,9 +33,35 @@ import time
 
 import robot_controller as robo
 
+class DataContainer(object):
+    """ Helper class that might be useful to communicate between different callbacks."""
+
+    def __init__(self):
+        self.running = True
+
+
 # Note that todo2 is farther down in the code.  That method needs to be written before you do todo3.
-# TODO: 3. Have someone on your team run this program on the EV3 and make sure everyone understands the code.
+# DONE: 3. Have someone on your team run this program on the EV3 and make sure
+# everyone understands the code.
 # Can you see what the robot does and explain what each line of code is doing? Talk as a group to make sure.
+
+btn = ev3.Button()  # Construct the one and only EV3 Button object
+led_colors = [ev3.Leds.BLACK,
+              # This list is useful for the down button in TO DO 4.
+              ev3.Leds.GREEN,
+              ev3.Leds.RED,
+              # ev3.Leds.ORANGE,  # Too close to another color in my opinion
+              # ev3.Leds.YELLOW,  # Too close to another color in my opinion
+              ev3.Leds.AMBER]
+
+current_color_index = 0
+
+dc = DataContainer()
+
+rc1 = ev3.RemoteControl(channel=1)
+rc2 = ev3.RemoteControl(channel=2)
+rc3 = ev3.RemoteControl(channel=3)
+rc4 = ev3.RemoteControl(channel=4)
 
 
 class DataContainer(object):
@@ -64,9 +90,16 @@ def main():
 
     # For our standard shutdown button.
     btn = ev3.Button()
-    btn.on_backspace = lambda state: handle_shutdown(state, dc)
+    rc1.on_red_up = lambda state: forward_left_motor(state, dc)
+    rc1.on_red_down = lambda state: back_left_motor(state, dc)
+    rc1.on_blue_up = lambda state: forward_right_motor(state, dc)
+    rc1.on_blue_down = lambda state: back_right_motor(state, dc)
+    rc1.on_backspace = lambda state: handle_shutdown(state, dc)
 
     robot.arm_calibration()  # Start with an arm calibration in this program.
+
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     while dc.running:
         # TODO: 5. Process the RemoteControl objects.
@@ -90,6 +123,31 @@ def main():
 # TODO: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
 #
 # Observations you should make, IR buttons are a fun way to control the robot.
+
+def forward_left_motor(button_state, robot):
+
+    if button_state:
+        ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[1])
+        robot.left_motor.run_forever(speed_sp=600)
+
+def back_left_motor(button_state, robot):
+
+    if button_state:
+        ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[2])
+        robot.left_motor.run_forver(speed_sp=-600)
+
+def forward_right_motor(button_state, robot):
+
+    if button_state:
+        ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[1])
+        robot.right_motor.run_forever(speed_sp=600)
+
+def back_right_motor(button_state, robot):
+
+    if button_state:
+        ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[2])
+        robot.right_motor.run_forever(speed_sp=-600)
+
 
 
 def handle_arm_up_button(button_state, robot):
