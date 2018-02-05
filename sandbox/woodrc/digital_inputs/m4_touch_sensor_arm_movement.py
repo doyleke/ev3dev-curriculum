@@ -3,15 +3,16 @@
 In this module you will use the touch sensor to make arm movements.  Instead of writing code from scratch you will
 fix the existing code, which is FULL of bugs.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Rachel, Abbie, and Kayleigh.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
 
 MAX_SPEED = 900
 
-# TODO: 2. Have someone on your team run this program as is on the EV3 and make sure everyone understands the code.
+# DONE: 2. Have someone on your team run this program as is on the EV3 and make
+#  sure everyone understands the code.
 # Can you see what the robot does and explain what each line of code is doing? Talk as a group to make sure.
 
 
@@ -31,16 +32,13 @@ def main():
         command_to_run = input("Enter c (for calibrate), u (for up), d (for down), or q (for quit): ")
         if command_to_run == 'c':
             print("Calibrate the arm")
-            print("TODO: 3 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_calibration(arm_motor, touch_sensor)
+            arm_calibration(arm_motor, touch_sensor)
         elif command_to_run == 'u':
             print("Move the arm to the up position")
-            print("TODO: 4 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_up(arm_motor, touch_sensor)
+            arm_up(arm_motor, touch_sensor)
         elif command_to_run == 'd':
             print("Move the arm to the down position")
-            print("TODO: 5 is to delete this print statement, uncomment the line below, and implement that function.")
-            # arm_down(arm_motor)
+            arm_down(arm_motor)
         elif command_to_run == 'q':
             break
         else:
@@ -73,7 +71,8 @@ def arm_calibration(arm_motor, touch_sensor):
     #   Set the arm encoder position to 0 (the last line below is correct to do that, it's new so no bug there)
 
     # Code that attempts to do this task but has MANY bugs (nearly 1 on every line).  Fix them!
-    arm_motor.run_forever(speed_sp=100)
+    arm_motor.run_forever(speed_sp=MAX_SPEED)
+
     while not touch_sensor:
         time.sleep(0.01)
     arm_motor.stop(stop_action="coast")
