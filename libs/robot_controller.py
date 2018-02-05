@@ -22,7 +22,7 @@ class Snatch3r(object):
     def __init__(self):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
-        self.arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touch_sensor = ev3.TouchSensor()
 
         assert self.left_motor.connected
@@ -77,7 +77,6 @@ class Snatch3r(object):
         self.arm_motor.position = 0  # Calibrate the down position as 0 (
         # this line is
         # correct as is).
-
 
     def arm_up(self):
         """
