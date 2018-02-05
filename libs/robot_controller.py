@@ -22,9 +22,12 @@ class Snatch3r(object):
     def __init__(self):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        self.arm_motor = ev3.LargeMotor(ev3.OUTPUT_A)
+        self.touch_sensor = ev3.TouchSensor()
 
         assert self.left_motor.connected
         assert self.right_motor.connected
+        assert self.arm_motor.connected
 
     def drive_inches(self, inches_target, speed_deg):
 
@@ -38,6 +41,9 @@ class Snatch3r(object):
         speed_deg, stop_action='brake')
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
+
+
+
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
 
             self.left_motor.run_to_rel_pos(speed_sp=(turn_speed_sp),
@@ -50,4 +56,69 @@ class Snatch3r(object):
 
     # DONE: Implement the Snatch3r class as needed when working the sandox
             # exercises
+
+    def arm_calibration(self):
+
+        self.arm_motor.run_forever(speed_sp=900)
+
+        while self.touch_sensor.is_pressed == False:
+            time.sleep(0.01)
+        self.arm_motor.stop(stop_action="brake")
+
+        ev3.Sound.beep().wait()
+
+        arm_revolutions_for_full_range = 14.2*360
+        self.arm_motor.run_to_rel_pos(
+            position_sp=-arm_revolutions_for_full_range)
+        self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+        ev3.Sound.beep().wait()
+
+        self.arm_motor.position = 0  # Calibrate the down position as 0 (
+        # this line is
+        # correct as is).
+
+
+    def arm_up(self):
+        """
+    Moves the Snatch3r arm to the up position.
+
+    Type hints:
+      :type arm_motor: ev3.MediumMotor
+      :type touch_sensor: ev3.TouchSensor
+    """
+    # DONE: 4. Implement the arm up movement by fixing the code below
+    # Command the arm_motor to run forever in the positive direction at max speed.
+    # Create a while loop that will block code execution until the touch sensor is pressed.
+    #   Within the loop sleep for 0.01 to avoid running code too fast.
+    # Once past the loop the touch sensor must be pressed. Stop the arm motor using the brake stop action.
+    # Make a beep sound
+
+    # Code that attempts to do this task but has many bugs.  Fix them!
+
+        self.arm_motor.run_to_rel_pos(position_sp=14.2*360, speed_sp=900)
+
+        while not self.touch_sensor.is_pressed:
+            time.sleep(0.01)
+        self.arm_motor.stop(stop_action='brake')
+
+        self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+    def arm_down(self):
+        """
+    Moves the Snatch3r arm to the down position.
+
+    Type hints:
+      :type arm_motor: ev3.MediumMotor
+    """
+    # DONE: 5. Implement the arm up movement by fixing the code below
+    # Move the arm to the absolute position_sp of 0 at max speed.
+    # Wait until the move completes
+    # Make a beep sound
+
+    # Code that attempts to do this task but has bugs.  Fix them.
+        self.arm_motor.run_to_abs_pos(position_sp=0, speed_sp=900)
+
+        self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the
+        # motor
 
