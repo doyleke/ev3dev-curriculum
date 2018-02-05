@@ -70,11 +70,11 @@ def main():
 
     # For our standard shutdown button.
     btn = ev3.Button()
-    rc1.on_red_up = lambda state: forward_left_motor(state, dc)
-    rc1.on_red_down = lambda state: back_left_motor(state, dc)
-    rc1.on_blue_up = lambda state: forward_right_motor(state, dc)
-    rc1.on_blue_down = lambda state: back_right_motor(state, dc)
-    rc1.on_backspace = lambda state: handle_shutdown(state, dc)
+    rc1.on_red_up = lambda state: forward_left_motor(state, robot)
+    rc1.on_red_down = lambda state: back_left_motor(state, robot)
+    rc1.on_blue_up = lambda state: forward_right_motor(state, robot)
+    rc1.on_blue_down = lambda state: back_right_motor(state, robot)
+    #rc1.on_backspace = lambda state: handle_shutdown(state, robot)
 
     robot.arm_calibration()  # Start with an arm calibration in this program.
 
