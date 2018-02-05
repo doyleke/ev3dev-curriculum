@@ -66,6 +66,11 @@ def main():
     # Object that is storing references to images that can be passed into callbacks.
     dc = DataContainer()
 
+    btn = ev3.Button()
+    rc2 = ev3.RemoteControl(channel=2)
+    rc3 = ev3.RemoteControl(channel=3)
+    rc4 = ev3.RemoteControl(channel=4)
+
     display_image(dc.lcd_screen, dc.eyes)  # Display an image on the EV3 screen
     ev3.Sound.speak("I R events with the Screen").wait()
 
@@ -75,10 +80,32 @@ def main():
     #   .on_blue_up   to call handle_blue_up_1   (that exist already) with state and dc as parameters
     #   .on_blue_down to call handle_blue_down_1 (that exist already) with state and dc as parameters
 
+    btn.on_red_up = lambda state:\
+        handle_red_up_1(state, dc)
+
+    btn.on_red_down = lambda state: \
+        handle_red_down_1(state, dc)
+
+    btn.on_blue_up = lambda state: \
+        handle_blue_up_1(state, dc)
+
+    btn.on_blue_down = lambda state: \
+        handle_blue_down_1(state, dc)
+
+
     # TODO: 5. Create remote control objects for channels 2, 3, and 4. Add lambda callbacks for on_red_up to each one:
     #   Channel 2's .on_red_up should call handle_red_up_2 (that exist already) with state and dc as parameters
     #   Channel 3's .on_red_up should call handle_red_up_3 (that exist already) with state and dc as parameters
     #   Channel 4's .on_red_up should call handle_red_up_4 (that exist already) with state and dc as parameters
+
+    rc2.on_red_up = lambda state: \
+        handle_red_up_2(state, dc)
+
+    rc3.on_red_up = lambda state: \
+        handle_red_up_3(state, dc)
+
+    rc4.on_red_up = lambda state: \
+        handle_red_up_4(state, dc)
 
     # Buttons on EV3
     btn = ev3.Button()
