@@ -45,32 +45,6 @@ class DataContainer(object):
 # everyone understands the code.
 # Can you see what the robot does and explain what each line of code is doing? Talk as a group to make sure.
 
-btn = ev3.Button()  # Construct the one and only EV3 Button object
-led_colors = [ev3.Leds.BLACK,
-              # This list is useful for the down button in TO DO 4.
-              ev3.Leds.GREEN,
-              ev3.Leds.RED,
-              # ev3.Leds.ORANGE,  # Too close to another color in my opinion
-              # ev3.Leds.YELLOW,  # Too close to another color in my opinion
-              ev3.Leds.AMBER]
-
-current_color_index = 0
-
-dc = DataContainer()
-
-rc1 = ev3.RemoteControl(channel=1)
-rc2 = ev3.RemoteControl(channel=2)
-rc3 = ev3.RemoteControl(channel=3)
-rc4 = ev3.RemoteControl(channel=4)
-
-
-class DataContainer(object):
-    """ Helper class that might be useful to communicate between different callbacks."""
-
-    def __init__(self):
-        self.running = True
-
-
 def main():
     print("--------------------------------------------")
     print("IR Remote")
@@ -83,6 +57,20 @@ def main():
     ev3.Leds.all_off()  # Turn the leds off
     robot = robo.Snatch3r()
     dc = DataContainer()
+
+    btn = ev3.Button()  # Construct the one and only EV3 Button object
+    led_colors = [ev3.Leds.BLACK,
+                  ev3.Leds.GREEN,
+                  ev3.Leds.RED,]
+
+    current_color_index = 0
+
+    dc = DataContainer()
+
+    rc1 = ev3.RemoteControl(channel=1)
+    rc2 = ev3.RemoteControl(channel=2)
+    rc3 = ev3.RemoteControl(channel=3)
+    rc4 = ev3.RemoteControl(channel=4)
 
     # TODO: 4. Add the necessary IR handler callbacks as per the instructions above.
     # Remote control channel 1 is for driving the crawler tracks around (none of these functions exist yet below).
