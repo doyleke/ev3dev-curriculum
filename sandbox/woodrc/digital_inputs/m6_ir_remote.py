@@ -125,28 +125,40 @@ def main():
 # Observations you should make, IR buttons are a fun way to control the robot.
 
 def forward_left_motor(button_state, robot):
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[1])
         robot.left_motor.run_forever(speed_sp=600)
+        print("up red button pressed")
 
 def back_left_motor(button_state, robot):
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[2])
         robot.left_motor.run_forver(speed_sp=-600)
+        print("down red button pressed")
 
 def forward_right_motor(button_state, robot):
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     if button_state:
         ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[1])
         robot.right_motor.run_forever(speed_sp=600)
+        print("up blue button pressed")
 
 def back_right_motor(button_state, robot):
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     if button_state:
         ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[2])
         robot.right_motor.run_forever(speed_sp=-600)
+        print("down blue button pressed")
 
 
 
