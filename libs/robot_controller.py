@@ -29,11 +29,6 @@ class Snatch3r(object):
         assert self.right_motor.connected
         assert self.arm_motor.connected
 
-        self.rc1 = ev3.RemoteControl(channel=1)
-        self.rc2 = ev3.RemoteControl(channel=2)
-        self.rc3 = ev3.RemoteControl(channel=3)
-        self.rc4 = ev3.RemoteControl(channel=4)
-
         self.led_colors = [ev3.Leds.BLACK, ev3.Leds.GREEN, ev3.Leds.RED]
 
         self.current_color_index = 0
