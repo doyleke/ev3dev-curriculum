@@ -57,7 +57,6 @@ def main():
     ev3.Leds.all_off()  # Turn the leds off
     robot = robo.Snatch3r()
     dc = DataContainer()
-    #btn = ev3.Button()
 
     rc1 = ev3.RemoteControl(channel=1)
     #rc2 = ev3.RemoteControl(channel=2)
@@ -85,6 +84,7 @@ def main():
     while dc.running:
         # TODO: 5. Process the RemoteControl objects.
         btn.process()
+        rc1.process()
         time.sleep(0.01)
 
     # TODO: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
@@ -107,7 +107,7 @@ def main():
 
 
 def forward_left_motor(button_state, robot):
-
+    print('forward left motor')
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[1])
         robot.left_motor.run_forever(speed_sp=600)
