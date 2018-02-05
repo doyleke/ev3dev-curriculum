@@ -97,7 +97,7 @@ def arm_up(arm_motor, touch_sensor):
       :type arm_motor: ev3.MediumMotor
       :type touch_sensor: ev3.TouchSensor
     """
-    # TODO: 4. Implement the arm up movement by fixing the code below
+    # DONE: 4. Implement the arm up movement by fixing the code below
     # Command the arm_motor to run forever in the positive direction at max speed.
     # Create a while loop that will block code execution until the touch sensor is pressed.
     #   Within the loop sleep for 0.01 to avoid running code too fast.
@@ -107,7 +107,8 @@ def arm_up(arm_motor, touch_sensor):
     # Code that attempts to do this task but has many bugs.  Fix them!
 
     arm_motor.run_to_rel_pos(position_sp=14.2*360, speed_sp=MAX_SPEED)
-    while touch_sensor.is_pressed:
+
+    while not touch_sensor.is_pressed:
         time.sleep(0.01)
     arm_motor.stop(stop_action='brake')
 
@@ -127,11 +128,8 @@ def arm_down(arm_motor):
     # Make a beep sound
 
     # Code that attempts to do this task but has bugs.  Fix them.
-    arm_motor.run_to_rel_pos(position_sp=0, speed_sp=MAX_SPEED)
+    arm_motor.run_to_abs_pos(position_sp=0, speed_sp=MAX_SPEED)
 
-    arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
-
-    arm_motor.run_to_abs_pos()
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor
     # finishes running
 
