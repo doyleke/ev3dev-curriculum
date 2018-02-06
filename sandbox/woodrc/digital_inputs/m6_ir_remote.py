@@ -93,6 +93,7 @@ def main():
     # VCS --> Update project...
     # Once the library is implemented any team member should be able to run his code as stated in todo3.
     robot.shutdown(btn, robot)
+    handle_shutdown(True, dc)
 
 # ----------------------------------------------------------------------
 # Event handlers
@@ -204,8 +205,6 @@ def handle_shutdown(button_state, dc):
     """
     if button_state:
         dc.running = False
-
-
 
 
 # ----------------------------------------------------------------------
