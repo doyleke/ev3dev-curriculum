@@ -16,7 +16,7 @@
     You should be able to use one red (left) button and one blue (right) button at the same time.  For example:
      while pressing both red up and blue down the robot should spin and LEDs will be green (left) and red (right).
 
-  IR remote channel 2 to raise and lower the arm
+  IR remote channel 2 to raise and lower the arm 
     -- Pressing red up   calls robot.arm_up().
     -- Pressing red down calls robot.arm_down().
     -- Pressing blue up  calls robot.arm_calibration().
