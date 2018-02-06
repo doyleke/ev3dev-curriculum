@@ -124,7 +124,7 @@ def back_left_motor(button_state, robot):
 
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[2])
-        robot.left_motor.run_forver(speed_sp=-600)
+        robot.left_motor.run_forever(speed_sp=-600)
         print("down red button pressed")
 
     else:
