@@ -52,7 +52,7 @@ def main():
     print(" - Use IR remote channel 2 to for the arm")
     print(" - Press the Back button on EV3 to exit")
     print("--------------------------------------------")
-    ev3.Sound.speak("I R Remote")
+    ev3.Sound.speak("eye R Remote")
 
     ev3.Leds.all_off()  # Turn the leds off
     robot = robo.Snatch3r()
