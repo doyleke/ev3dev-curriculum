@@ -92,7 +92,7 @@ def main():
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
     # Once the library is implemented any team member should be able to run his code as stated in todo3.
-    robot.shutdown()
+    robot.shutdown(btn, robot)
 
 # ----------------------------------------------------------------------
 # Event handlers
@@ -184,6 +184,18 @@ def handle_shutdown(button_state, dc):
     """
     if button_state:
         dc.running = False
+
+
+def shutdown(button_state, robot):
+
+    if button_state:
+        ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        print("back button is pressed")
+        print("Goodbye")
+        ev3.Sound.speak("Goodbye").wait()
 
 
 # ----------------------------------------------------------------------
