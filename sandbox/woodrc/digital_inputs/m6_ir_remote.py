@@ -92,7 +92,7 @@ def main():
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
     # Once the library is implemented any team member should be able to run his code as stated in todo3.
-    #robot.shutdown()
+    robot.shutdown()
 
 # ----------------------------------------------------------------------
 # Event handlers
