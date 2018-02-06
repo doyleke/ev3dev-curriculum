@@ -77,6 +77,7 @@ def main():
     rc2.on_red_up = lambda state: handle_arm_up_button(state, robot)
     rc2.on_red_down = lambda state: handle_arm_down_button(state, robot)
     rc2.on_blue_up = lambda state: handle_calibrate_button(state, robot)
+    rc2.on_blue_down = lambda state: handle_shutdown(state, dc)
 
     robot.arm_calibration()  # Start with an arm calibration in this program.
 
@@ -84,13 +85,14 @@ def main():
     ev3.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
 
     while dc.running:
-        # TODO: 5. Process the RemoteControl objects.
+        # DONE: 5. Process the RemoteControl objects.
         btn.process()
         rc1.process()
         rc2.process()
         time.sleep(0.01)
 
-    # TODO: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
+    # DONE: 2. Have everyone talk about this problem together then pick one
+    # member to modify libs/robot_controller.py
     # as necessary to implement the method below as per the instructions in the opening doc string. Once the code has
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
@@ -103,9 +105,10 @@ def main():
 # Some event handlers have been written for you (ones for the arm).
 # Movement event handlers have not been provided.
 # ----------------------------------------------------------------------
-# TODO: 6. Implement the IR handler callbacks handlers.
+# DONE: 6. Implement the IR handler callbacks handlers.
 
-# TODO: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
+# DONE: 7. When your program is complete, call over a TA or instructor to sign
+# your checkoff sheet and do a code review.
 #
 # Observations you should make, IR buttons are a fun way to control the robot.
 
