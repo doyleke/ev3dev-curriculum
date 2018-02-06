@@ -87,6 +87,7 @@ def main():
         # TODO: 5. Process the RemoteControl objects.
         btn.process()
         rc1.process()
+        rc2.process()
         time.sleep(0.01)
 
     # TODO: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
