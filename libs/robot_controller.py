@@ -94,3 +94,13 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the
         # motor
 
+    def shutdown(self, button_state, robot):
+
+        if button_state:
+            ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[0])
+            robot.right_motor.run_forever(speed_sp=0)
+            ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[0])
+            robot.right_motor.run_forever(speed_sp=0)
+            print("back button is pressed")
+            print("Goodbye")
+            ev3.Sound.speak("Goodbye").wait()
