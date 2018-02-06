@@ -113,6 +113,11 @@ def forward_left_motor(button_state, robot):
         robot.left_motor.run_forever(speed_sp=600)
         print("up red button pressed")
 
+    else:
+        ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        print("up red button was released")
+
 
 def back_left_motor(button_state, robot):
 
@@ -120,6 +125,11 @@ def back_left_motor(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[2])
         robot.left_motor.run_forver(speed_sp=-600)
         print("down red button pressed")
+
+    else:
+        ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        print("down red button was released")
 
 
 def forward_right_motor(button_state, robot):
@@ -129,6 +139,11 @@ def forward_right_motor(button_state, robot):
         robot.right_motor.run_forever(speed_sp=600)
         print("up blue button pressed")
 
+    else:
+        ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        print("up blue button was released")
+
 
 def back_right_motor(button_state, robot):
 
@@ -136,6 +151,11 @@ def back_right_motor(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[2])
         robot.right_motor.run_forever(speed_sp=-600)
         print("down blue button pressed")
+
+    else:
+        ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[0])
+        robot.right_motor.run_forever(speed_sp=0)
+        print("down blue button was released")
 
 
 def handle_arm_up_button(button_state, robot):
