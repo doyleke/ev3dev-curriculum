@@ -37,6 +37,7 @@ def main():
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
 
     mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
     root.title("MQTT Remote")
@@ -65,9 +66,9 @@ def main():
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
     # forward_button and '<Up>' key is done for your here...
-    forward_button['command'] = lambda: drive_callback(mqtt_client,
+    forward_button['command'] = lambda: drive(mqtt_client,
                                                  left_speed_entry, right_speed_entry)
-    root.bind('<Up>', lambda event: drive_callback(mqtt_client, left_speed_entry,
+    root.bind('<Up>', lambda event: drive(mqtt_client, left_speed_entry,
                                       right_speed_entry))
 
     left_button = ttk.Button(main_frame, text="Left")
@@ -112,11 +113,11 @@ def main():
 # Tkinter callbacks
 # ----------------------------------------------------------------------
 # TODO: 4. Implement the functions for the drive button callbacks.
-def drive_callback(mqtt_client, left_speed_entry, right_speed_entry):
+def drive(mqtt_client, left_speed_entry, right_speed_entry):
     print("heyo you made it to the callback")
-    mqtt_client.send_message("ev3.left_motor.run_forever",
+    mqtt_client.send_message("left_motor_run",
                              [int(left_speed_entry.get())])
-    mqtt_client.send_message(('ev3.right_motor.run_forever',
+    mqtt_client.send_message(('right_motor_run',
                               [int(right_speed_entry.get())]))
 
 
