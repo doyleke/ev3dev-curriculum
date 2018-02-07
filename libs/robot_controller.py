@@ -46,8 +46,6 @@ class Snatch3r(object):
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
 
-
-
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
 
             self.left_motor.run_to_rel_pos(speed_sp=(turn_speed_sp),
@@ -95,16 +93,22 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the
         # motor
 
-    #def shutdown(self, button_state, robot):
+    def stop_motors(self):
+        self.left_motor.stop_action(stop_action='brake')
+        self.right_motor.stop_action(stop_action='brake')
 
-        #if button_state:
-        #    ev3.Leds.set_color(ev3.Leds.RIGHT, robot.led_colors[0])
-        #    robot.right_motor.run_forever(speed_sp=0)
-        #    ev3.Leds.set_color(ev3.Leds.LEFT, robot.led_colors[0])
-        #    robot.right_motor.run_forever(speed_sp=0)
-        #    print("back button is pressed")
-        #    print("Goodbye")
-        #    ev3.Sound.speak("Goodbye").wait()
+    def left_motor(self, left_speed):
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.stop_action(stop_action='brake')
+
+    def right_motor(self, right_speed):
+        self.right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.stop_action(stop_action='brake')
+
+    def back(self, left_speed, right_speed):
+        self.right_motor.run_forever(speed_sp=-left_speed)
+        self.right
+
 
     def loop_forever(self):
         self.running = True
