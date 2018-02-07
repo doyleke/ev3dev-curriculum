@@ -88,6 +88,7 @@ def main():
     my_delegate = MyDelegate()
     mqtt_client = com.MqttClient(my_delegate)
 
+    mqtt_client.send_message()
 
     # Buttons on EV3 (these obviously assume TO DO: 3. is done)
     btn = ev3.Button()
