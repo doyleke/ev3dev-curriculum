@@ -92,7 +92,8 @@ def main():
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
     # back_button and '<Down>' key
-    back_button['command'] = lambda: back(mqtt_client)
+    back_button['command'] = lambda: back(mqtt_client, left_speed_entry,
+                                          right_speed_entry)
     root.bind('<Down>', lambda event: back(mqtt_client, left_speed_entry, right_speed_entry))
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -147,16 +148,19 @@ def send_down(mqtt_client):
 
 def left_motor(mqtt_client, left_speed_entry):
     print("left_motor")
-    mqtt_client.send_message("left_motor")
+    mqtt_client.send_message("left_motor", [int(left_speed_entry.get())])
 
 
 def right_motor(mqtt_client, right_speed_entry):
     print("right_motor")
-    mqtt_client.send_message("right_motor")
+    mqtt_client.send_message("right_motor", [int(right_speed_entry.get())])
+
 
 def back(mqtt_client, right_speed_entry, left_speed_entry):
     print("back")
-    mqtt_client.send_message("back")
+    mqtt_client.send_message("back", [int(right_speed_entry.get()),
+                                      int(left_speed_entry.get())])
+
 
 def stop_motors(mqtt_client):
     print("stop_motors")
