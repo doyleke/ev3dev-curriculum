@@ -99,11 +99,11 @@ class Snatch3r(object):
 
     def left_motor(self, left_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
-        self.right_motor.stop_action(stop_action='brake')
+        #self.right_motor.stop_action(stop_action='brake')
 
     def right_motor(self, right_speed):
         self.right_motor.run_forever(speed_sp=right_speed)
-        self.left_motor.stop_action(stop_action='brake')
+        #self.left_motor.stop_action(stop_action='brake')
 
     def back(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=-left_speed)
@@ -120,8 +120,8 @@ class Snatch3r(object):
         # The most important part of this method is given here, but you should add a bit more to stop motors, etc.
 
         self.running = False
-        self.left_motor.stop_action(stop_action = 'brake')
-        self.right_motor.stop_action(stop_action = 'brake')
+        self.left_motor.stop_action(stop_action='brake')
+        self.right_motor.stop_action(stop_action='brake')
         ev3.Leds.set_color(ev3.Leds.RIGHT, self.led_colors[1])
         ev3.Leds.set_color(ev3.Leds.LEFT, self.led_colors[1])
 
