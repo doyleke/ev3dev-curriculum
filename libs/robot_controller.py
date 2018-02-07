@@ -80,6 +80,7 @@ class Snatch3r(object):
         self.arm_motor.position = 0
 
     def arm_up(self):
+        print('made it to arm up')
         self.arm_motor.run_to_rel_pos(position_sp=14.2*360, speed_sp=900)
 
         while not self.touch_sensor.is_pressed:
@@ -104,3 +105,23 @@ class Snatch3r(object):
         #    print("back button is pressed")
         #    print("Goodbye")
         #    ev3.Sound.speak("Goodbye").wait()
+
+    def loop_forever(self):
+        self.running = True
+        while self.running:
+            time.sleep(0.1)
+
+    def shutdown(self):
+        # Modify a variable that will allow the loop_forever method to end. Additionally stop motors and set LEDs green.
+        # The most important part of this method is given here, but you should add a bit more to stop motors, etc.
+        self.running = False
+        self.left_motor.stop_action(stop_action = 'brake')
+        self.right_motor.stop_action(stop_action = 'brake')
+        ev3.Leds.set_color(ev3.Leds.RIGHT, self.led_colors[1])
+        ev3.Leds.set_color(ev3.Leds.LEFT, self.led_colors[1])
+
+    def left_motor_run(self, speed):
+        self.left_motor_run(speed)
+
+    def right_motor_run(self, speed):
+        self.right_motor_run(speed)
