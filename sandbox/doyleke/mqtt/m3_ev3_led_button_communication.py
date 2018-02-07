@@ -86,9 +86,12 @@ def main():
     # Note: on EV3 you call connect_to_pc, but in the PC code it will call connect_to_ev3
 
     my_delegate = MyDelegate()
+
     mqtt_client = com.MqttClient(my_delegate)
 
-    mqtt_client.send_message()
+    mqtt_client.connect_to_ev3()
+
+    mqtt_client.connect_to_pc()
 
     # Buttons on EV3 (these obviously assume TO DO: 3. is done)
     btn = ev3.Button()
@@ -115,11 +118,13 @@ def handle_button_press(button_state, mqtt_client, button_name):
     if button_state:
         print("{} button was pressed".format(button_name))
 
-        # TODO: 4. Send a message using MQTT that will:
+        # DONE: 4. Send a message using MQTT that will:
         #   -- Call the method called "button_pressed" on the delegate at the other end of the pipe.
         #   -- Pass the parameters [button_name] as a list.
         # This is meant to help you learn the mqtt_client.send_message syntax.
         # You can review the code above to understand how button_name is passed into this function.
+
+        mqtt_client.send_message.button_pressed(button_name)
 
 
 # TODO: 5. Run this program on your EV3 and run m3_pc_led_button_communication.py on your PC at the same time.
