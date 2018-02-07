@@ -73,6 +73,35 @@ class MyDelegate(object):
         self.running = True
 
 
+    def set_led(self):
+
+        led_side_string =
+        led_color_string =
+
+        print("Received: {} {}".format(led_side_string, led_color_string))
+        led_side = None
+
+
+        if led_side_string == "left":
+            led_side = ev3.Leds.LEFT
+        elif led_side_string == "right":
+            led_side = ev3.Leds.RIGHT
+
+        led_color = None
+        if led_color_string == "green":
+            led_color = ev3.Leds.GREEN
+        elif led_color_string == "red":
+            led_color = ev3.Leds.RED
+        elif led_color_string == "black":
+            led_color = ev3.Leds.BLACK
+
+        if led_side is None or led_color is None:
+         print("Invalid parameters sent to set_led. led_side_string = {} led_color_string = {}".format(
+                     led_side_string, led_color_string))
+        else:
+            ev3.Leds.set_color(led_side, led_color)
+
+
 def main():
     print("--------------------------------------------")
     print(" LED Button communication")
@@ -84,6 +113,7 @@ def main():
     # Note: you can determine the variable names that you should use by looking at the errors underlined in later code.
     # Once you have that done connect the mqtt_client to the MQTT broker using the connect_to_pc method.
     # Note: on EV3 you call connect_to_pc, but in the PC code it will call connect_to_ev3
+
 
     my_delegate = MyDelegate()
 
@@ -108,27 +138,6 @@ def main():
     ev3.Sound.speak("Goodbye").wait()
     ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
     ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
-
-    print("Received: {} {}".format(led_side_string, led_color_string))
-        led_side = None
-    if led_side_string == "left":
-        led_side = ev3.Leds.LEFT
-    elif led_side_string == "right":
-        led_side = ev3.Leds.RIGHT
-
-    led_color = None
-    if led_color_string == "green":
-        led_color = ev3.Leds.GREEN
-    elif led_color_string == "red":
-        led_color = ev3.Leds.RED
-    elif led_color_string == "black":
-        led_color = ev3.Leds.BLACK
-
-    if led_side is None or led_color is None:
-        print("Invalid parameters sent to set_led. led_side_string = {} led_color_string = {}".format(
-        led_side_string, led_color_string))
-    else:
-        ev3.Leds.set_color(led_side, led_color)
 
 
 # ----------------------------------------------------------------------
