@@ -114,14 +114,13 @@ class Snatch3r(object):
     def shutdown(self):
         # Modify a variable that will allow the loop_forever method to end. Additionally stop motors and set LEDs green.
         # The most important part of this method is given here, but you should add a bit more to stop motors, etc.
+
         self.running = False
         self.left_motor.stop_action(stop_action = 'brake')
         self.right_motor.stop_action(stop_action = 'brake')
         ev3.Leds.set_color(ev3.Leds.RIGHT, self.led_colors[1])
         ev3.Leds.set_color(ev3.Leds.LEFT, self.led_colors[1])
 
-    def left_motor_run(self, speed):
-        self.left_motor_run(speed)
-
-    def right_motor_run(self, speed):
-        self.right_motor_run(speed)
+    def motor_run(self, left_speed, right_speed):
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
