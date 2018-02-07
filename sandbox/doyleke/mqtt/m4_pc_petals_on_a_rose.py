@@ -15,8 +15,8 @@ number of dice to help you figure out the pattern more quickly.
 
 To check off this part of the assignment win the game (without looking at the EV3 code).
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Kayleigh.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import tkinter
 from tkinter import ttk
