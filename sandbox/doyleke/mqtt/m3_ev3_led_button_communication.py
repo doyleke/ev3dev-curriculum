@@ -109,6 +109,27 @@ def main():
     ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
     ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
 
+    print("Received: {} {}".format(led_side_string, led_color_string))
+        led_side = None
+    if led_side_string == "left":
+        led_side = ev3.Leds.LEFT
+    elif led_side_string == "right":
+        led_side = ev3.Leds.RIGHT
+
+    led_color = None
+    if led_color_string == "green":
+        led_color = ev3.Leds.GREEN
+    elif led_color_string == "red":
+        led_color = ev3.Leds.RED
+    elif led_color_string == "black":
+        led_color = ev3.Leds.BLACK
+
+    if led_side is None or led_color is None:
+        print("Invalid parameters sent to set_led. led_side_string = {} led_color_string = {}".format(
+        led_side_string, led_color_string))
+    else:
+        ev3.Leds.set_color(led_side, led_color)
+
 
 # ----------------------------------------------------------------------
 # Button event callback functions
@@ -124,7 +145,7 @@ def handle_button_press(button_state, mqtt_client, button_name):
         # This is meant to help you learn the mqtt_client.send_message syntax.
         # You can review the code above to understand how button_name is passed into this function.
 
-        mqtt_client.send_message.button_pressed(button_name)
+        mqtt_client.send_message("button_pressed", [button_name])
 
 
 # TODO: 5. Run this program on your EV3 and run m3_pc_led_button_communication.py on your PC at the same time.
