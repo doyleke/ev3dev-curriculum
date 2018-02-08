@@ -29,14 +29,15 @@ def main():
 
     # TODO: 4: After running the code set the default white and black levels to a better initial guess.
     #   Once you have the values hardcoded to resonable numbers here you don't really need the w and b commands below.
-    white_level = 50
-    black_level = 40
+    #white_level = 50
+    #black_level = 40
     robot = robo.Snatch3r()
 
     while True:
         command_to_run = input("Enter w (white), b (black), f (follow), or q (for quit): ")
         if command_to_run == 'w':
             print("Calibrate the white light level")
+            white_level = robot.color_sensor.reflected_light_intensity
             # TODO: 2. Read the reflected_light_intensity property of the color sensor and set white_level to that value
             # As discussed in the prior module, it is recommended that you've added to your Snatch3r class's constructor
             # the color_sensor, as shown:
@@ -48,6 +49,7 @@ def main():
         elif command_to_run == 'b':
             print("Calibrate the black light level")
             # TODO: 3. Read the reflected_light_intensity property of the color sensor and set black_level
+            black_level = robot.color_sensor.reflected_light_intensity
 
             print("New black level is {}.".format(black_level))
         elif command_to_run == 'f':
