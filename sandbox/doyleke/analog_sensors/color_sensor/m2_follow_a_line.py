@@ -84,9 +84,9 @@ def follow_the_line(robot, white_level, black_level):
         robot.motor_run(300, 300)
         time.sleep(0.01)
         if robot.color_sensor.reflected_light_intensity == white_level:
-            robot.turn_left(30)
+            robot.turn_left(60)
         if robot.color_sensor.reflected_light_intensity != black_level:
-            robot.turn_right(30)
+            robot.turn_right(60)
             time.sleep(0.01)
     robot.stop_motors()
     ev3.Sound.speak("Done")
