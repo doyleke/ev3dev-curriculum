@@ -29,8 +29,8 @@ def main():
 
     # TODO: 4: After running the code set the default white and black levels to a better initial guess.
     #   Once you have the values hardcoded to resonable numbers here you don't really need the w and b commands below.
-    #white_level = 50
-    #black_level = 40
+    white_level = 95
+    black_level = 10
     robot = robo.Snatch3r()
 
     while True:
