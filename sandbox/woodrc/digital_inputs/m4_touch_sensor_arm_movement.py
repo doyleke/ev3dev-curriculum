@@ -108,9 +108,12 @@ def arm_up(arm_motor, touch_sensor):
 
     arm_motor.run_to_rel_pos(position_sp=14.2*360, speed_sp=MAX_SPEED)
 
+
+
     while not touch_sensor.is_pressed:
         time.sleep(0.01)
     arm_motor.stop(stop_action='brake')
+    ev3.Sound.beep().wait()
 
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
@@ -132,7 +135,7 @@ def arm_down(arm_motor):
 
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor
     # finishes running
-
+    ev3.Sound.beep().wait()
     # DONE: 6. After you fix the bugs in the three arm movement commands demo
     # your code to a TA or instructor.
     #
