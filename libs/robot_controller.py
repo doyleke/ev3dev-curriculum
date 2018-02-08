@@ -87,6 +87,8 @@ class Snatch3r(object):
             time.sleep(0.01)
         self.arm_motor.stop(stop_action='brake')
 
+        ev3.Sound.beep().wait()
+
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
     def arm_down(self):
@@ -94,6 +96,7 @@ class Snatch3r(object):
 
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the
         # motor
+        ev3.Sound.beep().wait()
 
     def stop_motors(self):
         self.left_motor.stop(stop_action='brake')
