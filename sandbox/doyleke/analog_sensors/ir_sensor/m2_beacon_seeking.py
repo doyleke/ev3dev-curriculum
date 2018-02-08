@@ -90,7 +90,7 @@ def seek_beacon(robot):
             #    print("On the right heading. Distance: ", current_distance)
             #    print("Adjusting heading: ", current_heading)
             #    print("Heading is too far off to fix: ", current_heading)
-            
+
 
             # Here is some code to help get you started
             if math.fabs(current_heading) < 2:
