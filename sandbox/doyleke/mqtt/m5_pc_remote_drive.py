@@ -155,6 +155,10 @@ def right_motor(mqtt_client, right_speed_entry):
     print("right_motor")
     mqtt_client.send_message("right_motor", [int(right_speed_entry.get())])
 
+def turn_right(mqtt_client, right_speed_entry):
+    print("turning right")
+    mqtt_client.send_message("turn_left", [int(right_speed_entry.get())])
+
 
 def back(mqtt_client, right_speed_entry, left_speed_entry):
     print("back")
