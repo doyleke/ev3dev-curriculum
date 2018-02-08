@@ -25,11 +25,13 @@ class Snatch3r(object):
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touch_sensor = ev3.TouchSensor()
         self.color_sensor = ev3.ColorSensor()
+        self.ir_sensor = ev3.InfraredSensor()
 
         assert self.color_sensor
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor.connected
+        assert self.ir_sensor.connected
 
         self.led_colors = [ev3.Leds.BLACK, ev3.Leds.GREEN, ev3.Leds.RED]
 
