@@ -44,11 +44,11 @@ def main():
         # Continuously track the color until the touch sensor is pressed to end the program.
         if xval < 150:
             robot.turn_left(turn_speed)
-        elif xval > 170:
+            time.sleep(0.1)
+        if xval > 170:
             robot.turn_right(turn_speed)
-        else:
-            robot.stop_motors()
-
+            time.sleep(0.1)
+        robot.stop_motors()
         time.sleep(0.25)
 
     print("Goodbye!")
