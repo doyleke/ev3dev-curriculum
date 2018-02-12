@@ -33,6 +33,8 @@ def main():
         # Print the values for x and y
         xval = robot.pixy.value(1)
         yval = robot.pixy.value(2)
+        print('xval:', xval)
+        print('yval', yval)
         # Should these be printed? Why do we need the yval?
 
         # DONE 3. Use the x value to turn the robot
@@ -40,17 +42,12 @@ def main():
         #   If the Pixy x value is greater than 170 turn right (turn_speed, -turn_speed)
         #   If the Pixy x value is between 150 and 170 stop the robot
         # Continuously track the color until the touch sensor is pressed to end the program.
-        if xval > 150:
+        if xval < 150:
             robot.turn_left(turn_speed)
-        elif xval < 170:
+        elif xval > 170:
             robot.turn_right(turn_speed)
         else:
             robot.stop_motors()
-
-
-
-
-
 
         time.sleep(0.25)
 
