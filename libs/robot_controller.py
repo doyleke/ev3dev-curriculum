@@ -185,11 +185,9 @@ class Snatch3r(object):
                     print("current heading:", current_heading)
                     self.stop_motors()
 
-            time.sleep(0.2)
+            time.sleep(0.02)
 
-            print("Abandon ship!")
-            self.stop_motors()
-            return False
+            
 
 
 
