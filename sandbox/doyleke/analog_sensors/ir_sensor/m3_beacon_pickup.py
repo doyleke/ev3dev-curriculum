@@ -50,16 +50,16 @@ def main():
     robot = robo.Snatch3r()
     try:
         while True:
-            # found_beacon = robot.seek_beacon()
-            # if found_beacon:
-            robot.seek_beacon()
-            ev3.Sound.speak("I got the beacon")
-            robot.arm_up()
-            time.sleep(1)
-            robot.arm_down()
-            command = input("Hit enter to seek the beacon again or enter q to quit: ")
-            if command == "q":
-                break
+            found_beacon = robot.seek_beacon()
+            if found_beacon:
+                robot.seek_beacon()
+                ev3.Sound.speak("I got the beacon")
+                robot.arm_up()
+                time.sleep(1)
+                robot.arm_down()
+                command = input("Hit enter to seek the beacon again or enter q to quit: ")
+                if command == "q":
+                    break
     except:
         traceback.print_exc()
         ev3.Sound.speak("Error")
