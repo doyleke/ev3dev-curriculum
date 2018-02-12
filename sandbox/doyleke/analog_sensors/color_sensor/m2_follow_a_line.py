@@ -38,7 +38,7 @@ def main():
         command_to_run = input("Enter w (white), b (black), f (follow), or q (for quit): ")
         if command_to_run == 'w':
             print("Calibrate the white light level")
-            #white_level = robot.color_sensor.reflected_light_intensity
+            # white_level = robot.color_sensor.reflected_light_intensity
             # TODO: 2. Read the reflected_light_intensity property of the color sensor and set white_level to that value
             # As discussed in the prior module, it is recommended that you've added to your Snatch3r class's constructor
             # the color_sensor, as shown:
@@ -51,7 +51,7 @@ def main():
             print("Calibrate the black light level")
             # Done: 3. Read the reflected_light_intensity property of the color
             #  sensor and set black_level
-            #black_level = robot.color_sensor.reflected_light_intensity
+            # black_level = robot.color_sensor.reflected_light_intensity
 
             print("New black level is {}.".format(black_level))
         elif command_to_run == 'f':
@@ -70,7 +70,8 @@ def follow_the_line(robot, white_level, black_level):
     """
     The robot follows the black line until the touch sensor is pressed.
     You will need a black line track to test your code
-    When the touch sensor is pressed, line following ends, the robot stops, and control is returned to main.
+    When the touch sensor is pressed, line following ends, the robot stops,
+    and control is returned to main.
 
     Type hints:
       :type robot: robo.Snatch3r
@@ -85,15 +86,15 @@ def follow_the_line(robot, white_level, black_level):
     while not robot.touch_sensor.is_pressed:
         robot.motor_run(300, 300)
         time.sleep(0.01)
-        if robot.color_sensor.reflected_light_intensity == white_level:
-            robot.turn_left(300)
+        if robot.color_sensor.reflected_light_intensity != black_level:
+            robot.turn_right(300)
             time.sleep(.01)
             if robot.color_sensor.reflected_light_intensity == white_level:
                 robot.turn_right(600)
                 time.sleep(.01)
-        if robot.color_sensor.reflected_light_intensity != black_level:
-            robot.turn_right(300)
-            time.sleep(0.01)
+        # if robot.color_sensor.reflected_light_intensity != black_level:
+            # robot.turn_right(300)
+            # time.sleep(0.01)
     robot.stop_motors()
     ev3.Sound.speak("Done")
 
