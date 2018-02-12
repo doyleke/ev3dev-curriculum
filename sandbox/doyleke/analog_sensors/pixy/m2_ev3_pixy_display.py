@@ -38,6 +38,7 @@ def main():
         y = robot.pixy.value(2)
         width = robot.pixy.value(3)
         height = robot.pixy.value(4)
+        mqtt_client.send_message('print', [x, y, width, height])
 
 
         # Done: 4. Send the Pixy values to the PC by calling the
