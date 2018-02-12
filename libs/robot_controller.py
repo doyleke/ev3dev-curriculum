@@ -144,7 +144,7 @@ class Snatch3r(object):
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
 
-    def beacon_seeking(self):
+    def seek_beacon(self):
         beacon_seeker = ev3.BeaconSeeker(channel=1)
 
         forward_speed = 300
