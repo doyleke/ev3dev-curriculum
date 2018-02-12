@@ -48,15 +48,15 @@ def main():
 
         width = robot.pixy.value(3)
 
-        if width > 0:
-            ev3.Sound.beep().wait(0.2)
-
+        if width > 0.5:
+            ev3.Sound.beep()
+            time.sleep(1)
         time.sleep(0.1)
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
 
-# TODO: 3. Call over a TA or instructor to sign your team's checkoff sheet.
+# Done: 3. Call over a TA or instructor to sign your team's checkoff sheet.
 #
 # Observations you should make, the Pixy cam can detect colors.
 # That's just neat. ;)

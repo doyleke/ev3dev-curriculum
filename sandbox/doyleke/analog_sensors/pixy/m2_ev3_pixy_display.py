@@ -34,10 +34,10 @@ def main():
 
         # TODO: 3. Read the Pixy values for x, y, width, and height
         # Print the values (much like the print_pixy_readings example)
-        x = robot.pixy.value()
-        y = robot.pixy.value()
-        width = robot.pixy.value()
-        height = robot.pixy.value()
+        x = robot.pixy.value(1)
+        y = robot.pixy.value(2)
+        width = robot.pixy.value(3)
+        height = robot.pixy.value(4)
 
 
         # TODO: 4. Send the Pixy values to the PC by calling the on_rectangle_update method
