@@ -104,7 +104,7 @@ def seek_beacon(robot):
                 # You add more!
                 if current_distance <= 3:
                     return True
-                if current_distance > 0:
+                if current_distance > 3:
                     robot.motor_run(forward_speed, forward_speed)
 
             if math.fabs(current_heading) > 2 < 10:
