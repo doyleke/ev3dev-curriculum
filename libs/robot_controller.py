@@ -150,44 +150,46 @@ class Snatch3r(object):
         forward_speed = 300
         turn_speed = 100
 
-        current_distance = beacon_seeker.distance
-        current_heading = beacon_seeker.heading
+        while not self.touch_sensor.is_pressed:
 
-        if current_distance == -128:
-            print("IR Remote not found. Distance is -128")
-            self.turn_left(100)
+            current_distance = beacon_seeker.distance
+            current_heading = beacon_seeker.heading
 
-        else:
-            if math.fabs(current_heading) < 2:
-                print("current heading", current_heading)
-                print("On the right heading. Distance: ", current_distance)
-                if current_distance <= 3:
-                    return True
-                if current_distance > 0:
-                    self.motor_run(forward_speed, forward_speed)
+            if current_distance == -128:
+                print("IR Remote not found. Distance is -128")
+                self.turn_left(100)
 
-            if math.fabs(current_heading) > 2 < 10:
+            else:
+                if math.fabs(current_heading) < 2:
+                    print("current heading", current_heading)
+                    print("On the right heading. Distance: ", current_distance)
+                    if current_distance <= 3:
+                        return True
+                    if current_distance > 0:
+                        self.motor_run(forward_speed, forward_speed)
 
-                print("current heading: ", current_heading)
-                print("sweet the heading is right. gonna spin now")
-                print("distance: ", current_distance)
+                if math.fabs(current_heading) > 2 < 10:
 
-                if current_heading < 0:
-                    self.turn_right(turn_speed)
-                if current_heading > 0:
-                    self.turn_left(turn_speed)
+                    print("current heading: ", current_heading)
+                    print("sweet the heading is right. gonna spin now")
+                    print("distance: ", current_distance)
 
-            if math.fabs(current_heading) > 10:
-                self.turn_right(100)
-                print("Heading too far off")
-                print("current heading:", current_heading)
-                self.stop_motors()
+                    if current_heading < 0:
+                        self.turn_right(turn_speed)
+                    if current_heading > 0:
+                        self.turn_left(turn_speed)
 
-        time.sleep(0.2)
+                if math.fabs(current_heading) > 10:
+                    self.turn_right(100)
+                    print("Heading too far off")
+                    print("current heading:", current_heading)
+                    self.stop_motors()
 
-        print("Abandon ship!")
-        self.stop_motors()
-        return False
+            time.sleep(0.2)
+
+            print("Abandon ship!")
+            self.stop_motors()
+            return False
 
 
 
