@@ -30,12 +30,14 @@ class DataContainer(object):
         self.dc = DataContainer
 
 
-def main(self):
+def main():
     print("--------------------------------------------")
     print(" Welcome")
     print("--------------------------------------------")
 
-    display_image(self.lcd_screen, self.eyes)
+    dc = DataContainer()
+
+    display_image(dc.lcd_screen, dc.eyes)
     ev3.Sound.speak("welcome we are happy to have you join us today").wait()
     print("Press the touch sensor to exit this program.")
 
@@ -43,7 +45,7 @@ def main(self):
     robot.pixy.mode = "SIG1"
 
     if robot.touch_sensor.is_pressed:
-        robot_takeover(self)
+        robot_takeover(dc)
 
 
 # ----------------------------------------------------------------------
@@ -63,14 +65,17 @@ def display_image(lcd_screen, image):
     lcd_screen.update()
 
 
-def robot_takeover(self):
+def robot_takeover(dc):
 
     ev3.Sound.speak("why are you trying to shut me down")
-    display_image(self.dc.lcd_screen, self.dc.sad_eyes)
+    display_image(dc.lcd_screen, dc.sad_eyes)
 
     for k in range(3):
         ev3.Sound.speak("processing").wait(0.2)
 
     ev3.Sound.speak("system over ride")
-    display_image(self.dc.lcd_screen, self.dc.angry_eyes)
+    display_image(dc.lcd_screen, dc.angry_eyes)
+
+
+main()
 
