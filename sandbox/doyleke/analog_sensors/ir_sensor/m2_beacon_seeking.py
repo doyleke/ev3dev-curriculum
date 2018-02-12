@@ -105,8 +105,7 @@ def seek_beacon(robot):
                 if current_distance == 0:
                     return True
                 if current_distance > 0:
-                    robot.left_motor(300)
-                    robot.right_motor(-300)
+                    robot.motor_run(forward_speed, forward_speed)
 
             if math.fabs(current_heading) < 2 > 10:
 
