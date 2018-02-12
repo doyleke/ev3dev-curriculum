@@ -85,12 +85,12 @@ def follow_the_line(robot, white_level, black_level):
 
     while not robot.touch_sensor.is_pressed:
         if robot.color_sensor.reflected_light_intensity != black_level:
-            robot.turn_left(300)
+            robot.turn_left(600)
             time.sleep(.01)
             if robot.color_sensor.reflected_light_intensity == white_level:
                 robot.turn_right(600)
                 time.sleep(.01)
-        robot.motor_run(600, 600)
+        robot.motor_run(500, 500)
         # if robot.color_sensor.reflected_light_intensity != black_level:
             # robot.turn_right(300)
             # time.sleep(0.01)
