@@ -32,7 +32,7 @@ def main():
 
     while not robot.touch_sensor.is_pressed:
 
-        # TODO: 3. Read the Pixy values for x, y, width, and height
+        # Done: 3. Read the Pixy values for x, y, width, and height
         # Print the values (much like the print_pixy_readings example)
         x = robot.pixy.value(1)
         y = robot.pixy.value(2)
@@ -40,10 +40,11 @@ def main():
         height = robot.pixy.value(4)
 
 
-        # TODO: 4. Send the Pixy values to the PC by calling the on_rectangle_update method
+        # Done: 4. Send the Pixy values to the PC by calling the
+        # on_rectangle_update method
         # If you open m2_pc_pixy_display you can see the parameters for that method [x, y, width, height]
 
-        robot.pixy.on_rectangle_update(x, y, width, height)
+        mqtt_client.send_message('on_rectangle_update', [x, y, width, height])
 
         time.sleep(0.25)
 
@@ -51,7 +52,7 @@ def main():
     ev3.Sound.speak("Goodbye").wait()
     mqtt_client.close()
 
-# TODO: 5. Call over a TA or instructor to sign your team's checkoff sheet.
+# Done: 5. Call over a TA or instructor to sign your team's checkoff sheet.
 #
 # Observations you should make, if the EV3 has data the PC can know that data too using MQTT.
 
