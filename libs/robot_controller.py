@@ -143,3 +143,51 @@ class Snatch3r(object):
     def motor_run(self, left_speed, right_speed):
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
+
+    def beacon_seeking(self):
+        beacon_seeker = ev3.BeaconSeeker(channel=1)
+
+        forward_speed = 300
+        turn_speed = 100
+
+        current_distance = beacon_seeker.distance
+        current_heading = beacon_seeker.heading
+
+        if current_distance == -128:
+            print("IR Remote not found. Distance is -128")
+            self.turn_left(100)
+
+        else:
+            if math.fabs(current_heading) < 2:
+                print("current heading", current_heading)
+                print("On the right heading. Distance: ", current_distance)
+                if current_distance <= 3:
+                    return True
+                if current_distance > 0:
+                    self.motor_run(forward_speed, forward_speed)
+
+            if math.fabs(current_heading) > 2 < 10:
+
+                print("current heading: ", current_heading)
+                print("sweet the heading is right. gonna spin now")
+                print("distance: ", current_distance)
+
+                if current_heading < 0:
+                    self.turn_right(turn_speed)
+                if current_heading > 0:
+                    self.turn_left(turn_speed)
+
+            if math.fabs(current_heading) > 10:
+                self.turn_right(100)
+                print("Heading too far off")
+                print("current heading:", current_heading)
+                self.stop_motors()
+
+        time.sleep(0.2)
+
+        print("Abandon ship!")
+        self.stop_motors()
+        return False
+
+
+
