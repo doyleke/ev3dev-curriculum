@@ -168,6 +168,7 @@ class Snatch3r(object):
                         current_distance = beacon_seeker.distance
                         if current_distance <=1:
                             self.stop_motors()
+                            print('beacon')
                             return True
                         time.sleep(.01)
 
