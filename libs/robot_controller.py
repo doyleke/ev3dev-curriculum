@@ -168,7 +168,7 @@ class Snatch3r(object):
                     if current_distance > 0:
                         self.motor_run(forward_speed, forward_speed)
 
-                if math.fabs(current_heading) > 2 < 10:
+                if 2 < math.fabs(current_heading) < 10:
 
                     print("current heading: ", current_heading)
                     print("sweet the heading is right. gonna spin now")
@@ -183,11 +183,11 @@ class Snatch3r(object):
                     self.turn_right(100)
                     print("Heading too far off")
                     print("current heading:", current_heading)
-                    self.stop_motors()
+                   
 
             time.sleep(0.02)
 
-            
+
 
 
 
