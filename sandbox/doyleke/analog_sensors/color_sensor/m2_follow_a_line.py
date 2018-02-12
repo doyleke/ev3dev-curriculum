@@ -90,7 +90,7 @@ def follow_the_line(robot, white_level, black_level):
             robot.turn_right(300)
             time.sleep(.01)
             if robot.color_sensor.reflected_light_intensity == white_level:
-                robot.turn_right(600)
+                robot.turn_left(600)
                 time.sleep(.01)
         # if robot.color_sensor.reflected_light_intensity != black_level:
             # robot.turn_right(300)
