@@ -107,7 +107,7 @@ def seek_beacon(robot):
                 if current_distance > 0:
                     robot.motor_run(forward_speed, forward_speed)
 
-            if math.fabs(current_heading) < 2 > 10:
+            if math.fabs(current_heading) > 2 < 10:
 
                 print("current heading: ", current_heading)
                 print("sweet the heading is right. gonna spin now")
@@ -122,6 +122,7 @@ def seek_beacon(robot):
                 robot.stop_motors()
                 print("Heading too far off")
                 print("current heading:", current_heading)
+                robot.stop_motors()
 
 
 
