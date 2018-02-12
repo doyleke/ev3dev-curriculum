@@ -163,7 +163,7 @@ class Snatch3r(object):
                 if math.fabs(current_heading) <= 2:
                     print("current heading", current_heading)
                     print("On the right heading. Distance: ", current_distance)
-                    if current_distance <= 3:
+                    if current_distance <= 0:
                         self.stop_motors()
                         return True
 
