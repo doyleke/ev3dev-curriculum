@@ -27,7 +27,8 @@ def main():
     print("--------------------------------------------")
     ev3.Sound.speak("Follow a line").wait()
 
-    # TODO: 4: After running the code set the default white and black levels to a better initial guess.
+    # Done: 4: After running the code set the default white and black levels to
+    #  a better initial guess.
     #   Once you have the values hardcoded to resonable numbers here you don't really need the w and b commands below.
     white_level = 94
     black_level = 3
@@ -48,7 +49,8 @@ def main():
             print("New white level is {}.".format(white_level))
         elif command_to_run == 'b':
             print("Calibrate the black light level")
-            # TODO: 3. Read the reflected_light_intensity property of the color sensor and set black_level
+            # Done: 3. Read the reflected_light_intensity property of the color
+            #  sensor and set black_level
             #black_level = robot.color_sensor.reflected_light_intensity
 
             print("New black level is {}.".format(black_level))

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-The goal of this module is to practice using the Pixy and MQTT at the same time.  This module will send data from the
-EV3 to the PC.
+The goal of this module is to practice using the Pixy and MQTT at the same time.
+This module will send data from the EV3 to the PC.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.  February 2017.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Kayleigh.  February 2017.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -21,7 +21,10 @@ def main():
     ev3.Sound.speak("Pixy display").wait()
     print("Press the touch sensor to exit this program.")
 
-    # TODO: 2. Create an MqttClient (no delegate needed since EV3 will only send data, so an empty constructor is fine)
+    # Done: 2. Create an MqttClient (no delegate needed since EV3 will only
+    # send data, so an empty constructor is fine)
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_pc()
     # Then connect to the pc using the connect_to_pc method.
 
     robot = robo.Snatch3r()
@@ -31,12 +34,16 @@ def main():
 
         # TODO: 3. Read the Pixy values for x, y, width, and height
         # Print the values (much like the print_pixy_readings example)
+        x = robot.pixy.value()
+        y = robot.pixy.value()
+        width = robot.pixy.value()
+        height = robot.pixy.value()
+
 
         # TODO: 4. Send the Pixy values to the PC by calling the on_rectangle_update method
         # If you open m2_pc_pixy_display you can see the parameters for that method [x, y, width, height]
 
-
-
+        robot.pixy.on_rectangle_update(x, y, width, height)
 
         time.sleep(0.25)
 
@@ -53,4 +60,3 @@ def main():
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
 main()
-

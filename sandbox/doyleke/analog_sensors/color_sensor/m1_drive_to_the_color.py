@@ -13,7 +13,7 @@ If the user presses the Down  button, the robot drives until the robot gets to B
 If the user presses the Left  button, the robot drives until the robot gets to Black.
 If the user presses the Right button, the robot drives until the robot gets to White.
 
-Authors: David Fisher and Kyleigh.
+Authors: David Fisher and Kayleigh.
 """  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
@@ -97,7 +97,8 @@ def drive_to_color(button_state, robot, color_to_seek):
                 robot.stop_motors()
                 break
 
-        # TODO: 3. Implement the task as stated in this module's initial comment block
+        # Done: 3. Implement the task as stated in this module's initial
+        # comment block
         # It is recommended that you add to your Snatch3r class's constructor the color_sensor, as shown
         #   self.color_sensor = ev3.ColorSensor()
         #   assert self.color_sensor
