@@ -166,8 +166,8 @@ class Snatch3r(object):
                     if current_distance <= 3:
                         self.stop_motors()
                         return True
-                    if current_distance > 3:
-                        self.motor_run(forward_speed, forward_speed)
+                    
+                    self.motor_run(forward_speed, forward_speed)
 
                 if 2 < math.fabs(current_heading) < 10:
 
