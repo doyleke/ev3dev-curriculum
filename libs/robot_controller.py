@@ -163,21 +163,25 @@ class Snatch3r(object):
                 if math.fabs(current_heading) <= 2:
                     print("current heading", current_heading)
                     print("On the right heading. Distance: ", current_distance)
-                    if current_distance <= 3:
-                        self.stop_motors()
-                        return True
-
                     self.motor_run(forward_speed, forward_speed)
+                    while True:
+                        current_distance = beacon_seeker.distance
+                        if current_distance <=1:
+                            self.stop_motors()
+                            return True
+                        time.sleep(.01)
 
-                elif 2 < math.fabs(current_heading) <= 10:
+
+
+                elif 2 < math.fabs(current_heading) <= 20:
 
                     print("current heading: ", current_heading)
                     print("sweet the heading is right. gonna spin now")
                     print("distance: ", current_distance)
 
-                    if current_heading < 0:
+                    if current_heading <= 0:
                         self.turn_right(turn_speed)
-                    if current_heading > 0:
+                    else:
                         self.turn_left(turn_speed)
 
                 elif current_heading > 10:
