@@ -78,26 +78,28 @@ def main():
     # back_button and '<Down>' key
 
     up_button = ttk.Button(main_frame, text="Up")
-    up_button.grid(row=7, column=0)
+    up_button.grid(row=5, column=0)
     up_button['command'] = lambda: send_up(mqtt_client)
     root.bind('<u>', lambda event: send_up(mqtt_client))
 
     down_button = ttk.Button(main_frame, text="Down")
-    down_button.grid(row=8, column=0)
+    down_button.grid(row=6, column=0)
     down_button['command'] = lambda: send_down(mqtt_client)
     root.bind('<j>', lambda event: send_down(mqtt_client))
 
     # Buttons for quit and exit
     q_button = ttk.Button(main_frame, text="Quit")
-    q_button.grid(row=7, column=2)
+    q_button.grid(row=5, column=2)
     q_button['command'] = (lambda: quit_program(mqtt_client, False))
 
     e_button = ttk.Button(main_frame, text="Exit")
-    e_button.grid(row=8, column=2)
+    e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
 
-
     # Buttons for Opening Dace Moves GUI
+    dace_moves_button = ttk.Button(main_frame, text="Dace Moves")
+    dace_moves_button.grid(row=0, column=1)
+    dace_moves_button['command'] = (lambda: dace_gui(mqtt_client))
 
     root.mainloop()
 
@@ -131,6 +133,99 @@ def quit_program(mqtt_client, shutdown_ev3):
         mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
+
+
+def dace_gui(mqtt_client):
+    print("Dace Moves")
+    root = tkinter.Tk()
+    root.title("Dance Moves")
+    dance_frame = ttk.Frame(root, padding=20, relief='raised')
+    dance_frame.grid()
+
+    clap_button = ttk.Button(dance_frame, text="Clap")
+    clap_button.grid()
+    clap_button['command'] = (lambda: clap(mqtt_client))
+
+    slide_button = ttk.Button(dance_frame, text="Slide")
+    slide_button.grid()
+    slide_button['command'] = (lambda: slide(mqtt_client, 'Right'))
+
+    stomp_button = ttk.Button(dance_frame, text="Stomp")
+    stomp_button.grid()
+    stomp_button['command'] = (lambda: stomp(mqtt_client, 'Right'))
+
+    chacha_button = ttk.Button(dance_frame, text="ChaCha")
+    chacha_button.grid()
+    chacha_button['command'] = (lambda: chacha(mqtt_client))
+
+    small_slide_button = ttk.Button(dance_frame, text="SmallSlide")
+    small_slide_button.grid()
+    small_slide_button['command'] = (lambda: small_slide(mqtt_client, 'Left'))
+
+    crisscross_button = ttk.Button(dance_frame, text="Criss Cross")
+    crisscross_button.grid()
+    crisscross_button['command'] = (lambda: crisscross(mqtt_client))
+
+    reverse_button = ttk.Button(dance_frame, text="Reverse")
+    reverse_button.grid()
+    reverse_button['command'] = (lambda: reverse(mqtt_client))
+
+    charlie_brown_button = ttk.Button(dance_frame, text="Charlie Brown")
+    charlie_brown_button.grid()
+    charlie_brown_button['command'] = (lambda: charlie_brown(mqtt_client))
+
+
+
+def clap(mqtt_client):
+    print("Clap")
+
+
+def slide(mqtt_client, direction):
+    if direction == 'Left':
+        print('Slide to the ' + direction)
+    elif direction == 'Right':
+        print('Slide to the ' + direction)
+    elif direction == 'Back':
+        print('Tack it back now, Yall!')
+    else:
+        print('Error!')
+
+
+def stomp(mqtt_client, direction):
+    if direction == 'Left':
+        print(direction + "foot. Lets stomp")
+    elif direction == 'Right':
+        print(direction + "foot. Lets stomp")
+    elif direction == 'Hop':
+        print('Hop')
+    else:
+        print('Error!')
+
+
+def chacha(mqtt_client):
+    print("Chacha real smooth!")
+
+
+def small_slide(mqtt_client, direction):
+    if direction == 'Left':
+        print('To the ' + direction)
+    elif direction == 'Right':
+        print('To the ' + direction)
+    else:
+        print('Error!')
+
+
+def crisscross(mqtt_client):
+    print("Criss-Cross!")
+
+
+def reverse(mqtt_client):
+    print("Reverse! (Reverse!)")
+
+
+def charlie_brown(mqtt_client):
+    print("Charlie Brown")
+
 
 
 # ----------------------------------------------------------------------
