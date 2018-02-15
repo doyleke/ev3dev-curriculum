@@ -6,6 +6,18 @@ from tkinter import ttk
 import mqtt_remote_method_calls as com
 
 
+class MyDelegateOnThePc(object):
+    """ Helper class that will receive MQTT messages from the EV3. """
+
+    def __init__(self, label_to_display_messages_in):
+        self.display_label = label_to_display_messages_in
+
+    def button_pressed(self, button_name):
+        print("Received: " + button_name)
+        message_to_display = "{} was pressed.".format(button_name)
+        self.display_label.configure(text=message_to_display)
+
+
 def main():
     root = tkinter.Tk()
     root.title('Robot Artist')
@@ -75,6 +87,9 @@ def entered(shapes_input, color_fill, color_outline, frame):
 
 def to_the_robot(sides, fill_color, outline_color):
     print(sides, fill_color, outline_color)
+    pc_delegate = MyDelegateOnThePc()
+    mqtt_client = com.MqttClient(pc_delegate)
+    mqtt_client.connect_to_ev3()
 
 
 main()
