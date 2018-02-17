@@ -24,14 +24,43 @@ class Ev3delegate(object):
         assert self.ir_sensor.connected
         assert self.pixy
 
+    def drive_inches(self, inches_target, speed_deg):
+
+        inches_target = inches_target
+        motor_turns = inches_target*90
+        speed_deg = speed_deg
+
+        self.right_motor.run_to_rel_pos(position_sp=motor_turns,
+                                        speed_sp=speed_deg,
+                                        stop_action='brake')
+        self.left_motor.run_to_rel_pos(position_sp=motor_turns,
+                                       speed_sp=speed_deg, stop_action='brake')
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+    def turn_degrees(self, degrees_to_turn, turn_speed_sp):
+
+            self.left_motor.run_to_rel_pos(speed_sp=turn_speed_sp,
+                                           position_sp=(-degrees_to_turn * 4),
+                                           stop_action='brake')
+            self.right_motor.run_to_rel_pos(speed_sp=turn_speed_sp,
+                                            position_sp=degrees_to_turn*4,
+                                            stop_action='brake')
+            self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
     def drive_shapes(self, sides, fill_color, outline_color):
         if sides == 0:
             self.left_motor.run_to_rel_pos(speed_sp=400, position_sp=(-360 *
-                                                    4), stop_action='brake')
+                                                                      4),
+                                           stop_action='brake')
             self.right_motor.run_to_rel_pos(speed_sp=400,
                                             position_sp=360*4,
                                             stop_action='brake')
             self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        else:
+            turn_amount = 360/sides
+            for k in range(sides):
+                self.drive_inches(5, 500)
+                self.turn_degrees(turn_amount, 500)
         robot = Ev3delegate()
         mqtt_client = com.MqttClient(robot)
         mqtt_client.connect_to_pc()

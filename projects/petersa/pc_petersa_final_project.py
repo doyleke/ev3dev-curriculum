@@ -20,7 +20,8 @@ class MyDelegateOnThePc(object):
                                 height=500)
         canvas.grid(columnspan=2)
         if sides == 0:
-            canvas.create_oval(90, 90, 110, 110, fill=fill_color, width=3)
+            canvas.create_oval(90, 90, 110, 110, fill=fill_color,
+                               outline=outline_color)
         canvas.create_polygon(sides, fill_color, outline_color)
 
 
