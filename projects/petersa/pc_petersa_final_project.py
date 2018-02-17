@@ -11,6 +11,8 @@ class MyDelegateOnThePc(object):
 
     def object_drawn(self, sides, fill_color, outline_color):
         print('Robot has completed his masterpiece')
+        print('Robot has drawn shape with', sides, 'sides', fill_color,
+              'fill color', outline_color, 'outline color')
         root = tkinter.Tk()
         root.title = "Robots Masterpiece"
 
@@ -22,7 +24,8 @@ class MyDelegateOnThePc(object):
         if sides == 0:
             canvas.create_oval(90, 90, 110, 110, fill=fill_color,
                                outline=outline_color)
-        canvas.create_polygon(sides, fill_color, outline_color)
+        else:
+            canvas.create_polygon(sides, fill_color, outline_color)
 
 
 def main():
