@@ -16,12 +16,13 @@ class MyDelegateOnThePc(object):
 
         main_frame = ttk.Frame(root, padding=5)
         main_frame.grid()
-
-
-        # Make a tkinter.Canvas on a Frame.
         canvas = tkinter.Canvas(main_frame, background="lightgray", width=800,
                                 height=500)
         canvas.grid(columnspan=2)
+        if sides == 0:
+            canvas.create_oval(90, 90, 110, 110, fill=fill_color, width=3)
+        canvas.create_polygon(sides, fill_color, outline_color)
+
 
 def main():
     root = tkinter.Tk()
