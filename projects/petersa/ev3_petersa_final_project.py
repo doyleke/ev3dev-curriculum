@@ -1,6 +1,4 @@
 
-import tkinter
-from tkinter import ttk
 import time
 import ev3dev.ev3 as ev3
 
@@ -27,7 +25,19 @@ class Ev3delegate(object):
         assert self.pixy
 
     def drive_shapes(self, sides, fill_color, outline_color):
-        sdf
+        if sides == 0:
+            self.left_motor.run_to_rel_pos(speed_sp=400, position_sp=(-360 *
+                                                    4), stop_action='brake')
+            self.right_motor.run_to_rel_pos(speed_sp=400,
+                                            position_sp=360*4,
+                                            stop_action='brake')
+            self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        robot = Ev3delegate()
+        mqtt_client = com.MqttClient(robot)
+        mqtt_client.connect_to_pc()
+        robot.loop_forever()
+        mqtt_client.send_message('object_drawn', [sides, fill_color,
+                                                  outline_color])
 
     def loop_forever(self):
         self.running = True

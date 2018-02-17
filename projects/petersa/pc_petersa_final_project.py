@@ -9,14 +9,19 @@ import mqtt_remote_method_calls as com
 class MyDelegateOnThePc(object):
     """ Helper class that will receive MQTT messages from the EV3. """
 
-    def __init__(self, label_to_display_messages_in):
-        self.display_label = label_to_display_messages_in
-
     def object_drawn(self, sides, fill_color, outline_color):
-        print("Received: " + button_name)
-        message_to_display = "{} was pressed.".format(button_name)
-        self.display_label.configure(text=message_to_display)
+        print('Robot has completed his masterpiece')
+        root = tkinter.Tk()
+        root.title = "Robots Masterpiece"
 
+        main_frame = ttk.Frame(root, padding=5)
+        main_frame.grid()
+
+
+        # Make a tkinter.Canvas on a Frame.
+        canvas = tkinter.Canvas(main_frame, background="lightgray", width=800,
+                                height=500)
+        canvas.grid(columnspan=2)
 
 def main():
     root = tkinter.Tk()
