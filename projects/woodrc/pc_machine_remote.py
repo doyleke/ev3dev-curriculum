@@ -37,10 +37,12 @@ def main():
     mqtt_client = None  # Delete this line, it was added temporarily so that the code we gave you had no errors.
 
     root = tkinter.Tk()
-    root.title("MQTT Remote")
+    nb = ttk.Notebook(root)
 
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
+    nb.add(main_frame, text="Main Page")
+    nb.grid()
 
     left_speed_label = ttk.Label(main_frame, text="Left")
     left_speed_label.grid(row=0, column=0)
@@ -99,7 +101,7 @@ def main():
     # Buttons for Opening Dace Moves GUI
     dace_moves_button = ttk.Button(main_frame, text="Dace Moves")
     dace_moves_button.grid(row=0, column=1)
-    dace_moves_button['command'] = (lambda: dace_gui(mqtt_client))
+    dace_moves_button['command'] = (lambda: dace_gui(mqtt_client, nb, root))
 
     root.mainloop()
 
@@ -135,12 +137,14 @@ def quit_program(mqtt_client, shutdown_ev3):
     exit()
 
 
-def dace_gui(mqtt_client):
+def dace_gui(mqtt_client, notebook, root):
     print("Dace Moves")
-    root = tkinter.Tk()
-    root.title("Dance Moves")
+    nb = notebook
+
     dance_frame = ttk.Frame(root, padding=20, relief='raised')
     dance_frame.grid()
+    nb.add(dance_frame, text="Dance Moves")
+    nb.grid()
 
     clap_button = ttk.Button(dance_frame, text="Clap")
     clap_button.grid()
@@ -173,7 +177,6 @@ def dace_gui(mqtt_client):
     charlie_brown_button = ttk.Button(dance_frame, text="Charlie Brown")
     charlie_brown_button.grid()
     charlie_brown_button['command'] = (lambda: charlie_brown(mqtt_client))
-
 
 
 def clap(mqtt_client):
