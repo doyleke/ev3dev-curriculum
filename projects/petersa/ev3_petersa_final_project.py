@@ -24,6 +24,10 @@ class Ev3delegate(object):
         assert self.ir_sensor.connected
         assert self.pixy
 
+    def stop_motors(self):
+        self.left_motor.stop(stop_action='brake')
+        self.right_motor.stop(stop_action='brake')
+
     def drive_inches(self, inches_target, speed_deg):
 
         inches_target = inches_target
@@ -79,6 +83,18 @@ def main():
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
     robot.loop_forever()
+    if robot.touch_sensor.is_pressed:
+        print("Goodbye!")
+        ev3.Sound.speak("Goodbye").wait()
+        mqtt_client.close()
+    if robot.ir_sensor.proximity < 10:
+        robot.stop_motors()
+        ev3.Sound.beep().wait()
+        print('Cannot complete drawing')
+        time.sleep(1.5)
+
+    print(robot.ir_sensor.proximity)
+    time.sleep(0.1)
 
 
 main()
