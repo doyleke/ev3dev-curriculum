@@ -12,7 +12,7 @@ class MyDelegateOnThePc(object):
     def __init__(self, label_to_display_messages_in):
         self.display_label = label_to_display_messages_in
 
-    def button_pressed(self, button_name):
+    def object_drawn(self, sides, fill_color, outline_color):
         print("Received: " + button_name)
         message_to_display = "{} was pressed.".format(button_name)
         self.display_label.configure(text=message_to_display)
@@ -90,6 +90,9 @@ def to_the_robot(sides, fill_color, outline_color):
     pc_delegate = MyDelegateOnThePc()
     mqtt_client = com.MqttClient(pc_delegate)
     mqtt_client.connect_to_ev3()
+
+    mqtt_client.send_message('drive_shapes', [sides, fill_color,
+                                              outline_color])
 
 
 main()
