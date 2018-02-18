@@ -92,7 +92,6 @@ def main():
         ev3.Sound.beep().wait()
         print('Cannot complete drawing')
         time.sleep(1.5)
-
     print(robot.ir_sensor.proximity)
     time.sleep(0.1)
 
