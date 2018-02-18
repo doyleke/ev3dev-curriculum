@@ -276,7 +276,7 @@ def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
     ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
     mqtt_client.send_message("drive_inches", [3])
-    mqtt_client.send_message("drive_inches", [3])
+    mqtt_client.send_message("drive_inches", [-3])
 
 
 
