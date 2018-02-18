@@ -26,6 +26,8 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 import tkinter
 from tkinter import ttk
+import ev3dev.ev3 as ev3
+import robot_controller as robo
 
 import mqtt_remote_method_calls as com
 
@@ -272,6 +274,10 @@ def crisscross(mqtt_client):
 
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
+    ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
+    robo.drive_inches(7, 300)
+
+
 
 
 def charlie_brown(mqtt_client):
