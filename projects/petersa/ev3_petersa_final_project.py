@@ -84,7 +84,7 @@ class Ev3delegate(object):
                 mqtt_client.close()
                 break
             if self.ir_sensor.proximity < 10:
-                self.stop_motors().wait()
+                self.stop_motors()
                 ev3.Sound.beep().wait()
                 print('Cannot complete drawing')
                 time.sleep(1.5)

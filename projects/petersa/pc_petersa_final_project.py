@@ -2,6 +2,7 @@
 
 import tkinter
 from tkinter import ttk
+import math
 
 import mqtt_remote_method_calls as com
 
@@ -16,17 +17,18 @@ class MyDelegateOnThePc(object):
         root = tkinter.Toplevel()
         root.title = "Robots Masterpiece"
 
-        # main_frame = ttk.Frame(root, padding=5)
-        # main_frame.grid()
         canvas = tkinter.Canvas(root, background="lightgray", width=800,
                                 height=500)
         canvas.grid(columnspan=2)
         if sides == 0:
-            canvas.create_oval(90, 90, 110, 110, fill=fill_color,
+            canvas.create_oval(50, 50, 150, 150, fill=fill_color,
                                outline=outline_color)
         else:
-            canvas.create_polygon(sides, fill=fill_color)
-                                  #outline=outline_color)
+            print('made it to polygon')
+            polygon_sides = polygon(sides)
+            print(polygon_sides)
+            canvas.create_polygon(polygon_sides, fill=fill_color,
+                                  outline=outline_color)
 
 
 def main():
@@ -66,20 +68,6 @@ def main():
     root.mainloop()
 
 
-# def robots_masterpiece():
-#     root = tkinter.Tk()
-#     root.title('Robots Masterpiece')
-#     main_frame = ttk.Frame(root, padding=5)
-#     main_frame.grid()
-#
-#     label = ttk.Label(main_frame, text=None)
-#     label.grid(columnspan=2)
-#
-#     canvas = tkinter.Canvas(main_frame, background="white", width=800,
-#                             height=500)
-#     canvas.grid(columnspan=2)
-
-
 def entered(shapes_input, color_fill, color_outline, frame, mqtt_client):
     if shapes_input == 'Other':
         other_shape = ttk.Entry(frame)
@@ -105,6 +93,21 @@ def to_the_robot(sides, fill_color, outline_color, mqtt_client):
 
     mqtt_client.send_message('drive_shapes', [sides, fill_color,
                                               outline_color])
+
+
+def polygon(sides, radius=50, rotation=0, translation=None):
+    one_segment = math.pi * 2 / sides
+
+    points = [
+        (math.sin(one_segment * i + rotation) * radius + 250,
+         math.cos(one_segment * i + rotation) * radius + 150)
+        for i in range(sides)]
+
+    if translation:
+        points = [[sum(pair) for pair in zip(point, translation)]
+                  for point in points]
+
+    return points
 
 
 main()
