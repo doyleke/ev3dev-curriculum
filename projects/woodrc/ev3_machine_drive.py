@@ -14,6 +14,5 @@ def main():
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
 
-def play_song():
-    ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
+
 main()

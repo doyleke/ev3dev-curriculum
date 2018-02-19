@@ -27,7 +27,7 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 import tkinter
 from tkinter import ttk
 import ev3dev.ev3 as ev3
-import robot_controller as robo
+import robot_controller_mine as robo
 import time
 import mqtt_remote_method_calls as com
 
