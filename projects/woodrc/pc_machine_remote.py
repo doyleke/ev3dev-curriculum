@@ -28,7 +28,7 @@ import tkinter
 from tkinter import ttk
 import ev3dev.ev3 as ev3
 import robot_controller as robo
-
+import time
 import mqtt_remote_method_calls as com
 
 
@@ -282,7 +282,7 @@ def crisscross(mqtt_client):
 
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
-    ev3.Sound.play("/home/robot/csse120/projects/woodrc/awesome_pcm.wav")
+    ev3.Sound.speak("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     mqtt_client.send_message("drive_inches", [3])
     mqtt_client.send_message("drive_inches", [-3])
 
