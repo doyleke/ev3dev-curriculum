@@ -27,8 +27,8 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 import tkinter
 from tkinter import ttk
 import ev3dev.ev3 as ev3
-import robot_controller as robo
-
+import robot_controller_mine as robo
+import time
 import mqtt_remote_method_calls as com
 
 
@@ -282,9 +282,10 @@ def crisscross(mqtt_client):
 
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
-    ev3.Sound.play("/home/robot/csse120/projects/woodrc/awesome_pcm.wav")
-    mqtt_client.send_message("drive_inches", [3])
-    mqtt_client.send_message("drive_inches", [-3])
+    mqtt_client.send_message("play_song")
+    print('cats')
+    mqtt_client.send_message("drive_inches", [3, 300])
+    mqtt_client.send_message("drive_inches", [-3, 300])
 
 
 
