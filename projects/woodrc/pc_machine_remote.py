@@ -283,8 +283,8 @@ def crisscross(mqtt_client):
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
     mqtt_client.send_message("play_song")
-    mqtt_client.send_message("drive_inches", [3])
-    mqtt_client.send_message("drive_inches", [-3])
+    mqtt_client.send_message("drive_inches", [3, 300])
+    mqtt_client.send_message("drive_inches", [-3, 300])
 
 
 
