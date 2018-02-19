@@ -74,9 +74,20 @@ class Ev3delegate(object):
         self.mqtt_client.send_message('things_to_draw', [sides, fill_color,
                                                          outline_color])
 
-    def loop_forever(self):
+    def loop_forever(self, mqtt_client):
         self.running = True
         while self.running:
+            time.sleep(0.1)
+            if self.touch_sensor.is_pressed:
+                print("Goodbye!")
+                ev3.Sound.speak("Goodbye").wait()
+                mqtt_client.close()
+            if self.ir_sensor.proximity < 10:
+                self.stop_motors()
+                ev3.Sound.beep().wait()
+                print('Cannot complete drawing')
+                time.sleep(1.5)
+            # print(robot.ir_sensor.proximity)
             time.sleep(0.1)
 
 
@@ -85,18 +96,7 @@ def main():
     mqtt_client = com.MqttClient(robot)
     robot.set_mqtt(mqtt_client)
     mqtt_client.connect_to_pc()
-    robot.loop_forever()
-    if robot.touch_sensor.is_pressed:
-        print("Goodbye!")
-        ev3.Sound.speak("Goodbye").wait()
-        mqtt_client.close()
-    if robot.ir_sensor.proximity < 10:
-        robot.stop_motors()
-        ev3.Sound.beep().wait()
-        print('Cannot complete drawing')
-        time.sleep(1.5)
-    print(robot.ir_sensor.proximity)
-    time.sleep(0.1)
+    robot.loop_forever(mqtt_client)
 
 
 main()

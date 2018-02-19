@@ -13,19 +13,20 @@ class MyDelegateOnThePc(object):
         print('Robot has completed his masterpiece')
         print('Robot has drawn shape with', sides, 'sides', fill_color,
               'fill color', outline_color, 'outline color')
-        # root = tkinter.Toplevel()
-        # root.title = "Robots Masterpiece"
-        #
+        root = tkinter.Toplevel()
+        root.title = "Robots Masterpiece"
+
         # main_frame = ttk.Frame(root, padding=5)
         # main_frame.grid()
-        # canvas = tkinter.Canvas(main_frame, background="lightgray", width=800,
-        #                         height=500)
-        # canvas.grid(columnspan=2)
-        # if sides == 0:
-        #     canvas.create_oval(90, 90, 110, 110, fill=fill_color,
-        #                        outline=outline_color)
-        # else:
-        #     canvas.create_polygon(sides, fill_color, outline_color)
+        canvas = tkinter.Canvas(root, background="lightgray", width=800,
+                                height=500)
+        canvas.grid(columnspan=2)
+        if sides == 0:
+            canvas.create_oval(90, 90, 110, 110, fill=fill_color,
+                               outline=outline_color)
+        else:
+            canvas.create_polygon(sides, fill=fill_color,
+                                  outline=outline_color)
 
 
 def main():
