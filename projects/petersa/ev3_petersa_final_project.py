@@ -8,6 +8,7 @@ import mqtt_remote_method_calls as com
 class Ev3delegate(object):
 
     def __init__(self):
+        self.mqtt_client = None
         self.running = True
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
@@ -23,6 +24,9 @@ class Ev3delegate(object):
         assert self.arm_motor.connected
         assert self.ir_sensor.connected
         assert self.pixy
+
+    def set_mqtt(self, mqtt_client):
+        self.mqtt_client = mqtt_client
 
     def stop_motors(self):
         self.left_motor.stop(stop_action='brake')
@@ -52,6 +56,7 @@ class Ev3delegate(object):
             self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
     def drive_shapes(self, sides, fill_color, outline_color):
+        print('made it to drive_shapes')
         if sides == 0:
             self.left_motor.run_to_rel_pos(speed_sp=400, position_sp=(-360 *
                                                                       4),
@@ -65,12 +70,9 @@ class Ev3delegate(object):
             for k in range(sides):
                 self.drive_inches(5, 500)
                 self.turn_degrees(turn_amount, 500)
-        robot = Ev3delegate()
-        mqtt_client = com.MqttClient(robot)
-        mqtt_client.connect_to_pc()
-        robot.loop_forever()
-        mqtt_client.send_message('object_drawn', [sides, fill_color,
-                                                  outline_color])
+        print('connecting to pc')
+        self.mqtt_client.send_message('things_to_draw', [sides, fill_color,
+                                                         outline_color])
 
     def loop_forever(self):
         self.running = True
@@ -81,6 +83,7 @@ class Ev3delegate(object):
 def main():
     robot = Ev3delegate()
     mqtt_client = com.MqttClient(robot)
+    robot.set_mqtt(mqtt_client)
     mqtt_client.connect_to_pc()
     robot.loop_forever()
     if robot.touch_sensor.is_pressed:
