@@ -43,8 +43,12 @@ def main():
     root = tkinter.Tk()
     root.title("MQTT Remote")
 
+    notebook = ttk.Notebook(root)
+
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
+    notebook.add(main_frame, text="Main Controls")
+    notebook.grid()
 
     left_speed_label = ttk.Label(main_frame, text="Left")
     left_speed_label.grid(row=0, column=0)
@@ -115,6 +119,10 @@ def main():
     e_button = ttk.Button(main_frame, text="Exit")
     e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
+
+    dance_button = ttk.Button(main_frame, text="Dance Moves")
+    dance_button.grid(row=0, column=1)
+    dance_button['command'] = (lambda: dance_gui(mqtt_client, notebook, root))
 
     root.mainloop()
 
@@ -187,7 +195,7 @@ def quit_program(mqtt_client, shutdown_ev3):
     exit()
 
 
-def dace_gui(mqtt_client, notebook, root):
+def dance_gui(mqtt_client, notebook, root):
     print("Dace Moves")
     nb = notebook
 
