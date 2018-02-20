@@ -384,6 +384,7 @@ def dance(mqtt_client):
     stomp(mqtt_client, 'Hop')
     reverse(mqtt_client)
     reverse(mqtt_client)
+    lookaround(mqtt_client)
 
 
 def lookaround(mqtt_client):
