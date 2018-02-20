@@ -40,12 +40,10 @@ class DataContainer(object):
                                        "/images/ev3_lego/progress_bar_100.bmp")
         self.teary_eyes = Image.open("/home/robot/csse120/assets"
                                      "/images/ev3_lego/eyes_tear.bmp")
-        self.black_eye = Image.open(
-            "/home/robot/csse120/assets/images/ev3_lego/EV3_BMPs/Black "
-                                    "eye.bmp")
+        self.black_eye = Image.open("/home/robot/csse120/assets"
+                                    "/images/ev3_lego/EV3_BMPs/Black eye.bmp")
 
         self.dc = DataContainer
-
 
 
 def main():
