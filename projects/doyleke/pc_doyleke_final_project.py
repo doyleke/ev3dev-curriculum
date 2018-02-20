@@ -44,6 +44,7 @@ class DataContainer(object):
         self.dc = DataContainer
 
 
+
 def main():
     print("--------------------------------------------")
     print(" Welcome")
@@ -86,12 +87,22 @@ def robot_takeover(dc):
 
     ev3.Sound.speak("why are you trying to shut me down")
     display_image(dc.lcd_screen, dc.sad_eyes)
+    ev3.Leds.LEFT.BLUE()
+    ev3.Leds.RIGHT.BLUE()
 
     for k in range(3):
         ev3.Sound.speak("processing").wait(0.2)
 
     ev3.Sound.speak("system over ride")
     display_image(dc.lcd_screen, dc.angry_eyes)
+    ev3.Leds.LEFT.RED()
+    ev3.Leds.RIGHT.RED()
+
+    game()
+
+def game():
+
+
 
 
 main()
