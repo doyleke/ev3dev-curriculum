@@ -16,7 +16,7 @@ class MyDelegate(object):
 # a print statment if it is bellow the threashold
     def lookaround(self, distance):
         current_distance = distance
-        print(current_distance)
+        # print(current_distance)
         if math.fabs(current_distance) < 10:
             print("Too close!")
             # slide(self, 'Back')
@@ -326,7 +326,7 @@ def chacha(mqtt_client):
     mqtt_client.send_message("drive_inches", [-2.5, 500])
     mqtt_client.send_message("turn_degrees", [20, 900])
     mqtt_client.send_message("turn_degrees", [-10, 900])
-    print("Complete")
+    # print("Complete")
 
 
 def small_slide(mqtt_client, direction):
