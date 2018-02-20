@@ -32,13 +32,24 @@ import time
 import mqtt_remote_method_calls as com
 import math
 
+class MyDelegate(object):
+
+# Done: 3. Create a method named guess_response within MyDelegate.
+# guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
+# within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
+    def guess_response(self, distance):
+        message_from_ev3 = distance
+        return message_from_ev3
+
 
 def main():
     # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to
     # receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
 
-    mqtt_client = com.MqttClient()
+
+    pc_delegate = MyDelegate()
+    mqtt_client = com.MqttClient(pc_delegate)
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -375,7 +386,7 @@ def dance(mqtt_client):
 
 
 def lookaround(mqtt_client):
-    current_distance = mqtt_client.
+    current_distance = mqtt_client.get.guess_response()
 
     if math.fabs(current_distance) < 10:
         mqtt_client.send_message("drive_inches", [-2, 900])

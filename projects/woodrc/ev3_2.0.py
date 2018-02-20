@@ -26,8 +26,23 @@ class GameMaster(object):
         self.running = False
 
     def get_distance(self):
-        mqtt_client.send_message self.ir_sensor.proximity
+        distance = self.ir_sensor.proximity
 
+        self.mqtt_client.send_message["guess_response",
+                                      distance]
+
+    def loop_forever(self):
+        btn = ev3.Button()
+        self.running = True
+        while not btn.backspace and self.running:
+            # Do nothing while waiting for commands
+            time.sleep(0.01)
+        self.mqtt_client.close()
+        # Copied from robot.shutdown
+        print("Goodbye")
+        ev3.Sound.speak("Goodbye").wait()
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
 
 
 def main():
