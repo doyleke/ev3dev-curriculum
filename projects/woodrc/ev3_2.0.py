@@ -3,13 +3,8 @@ import mqtt_remote_method_calls as com
 import ev3dev.ev3 as ev3
 import time
 import math
-#
-# import ev3dev.ev3 as ev3
-# import time
-# import random
-# from PIL import Image
-# import mqtt_remote_method_calls as com
 
+# Old code if feedback from robot was uneeded
 # def main():
 #     robot = robo.Snatch3r()
 #     mqtt_client = com.MqttClient(robot)
@@ -20,6 +15,7 @@ import math
 
 class Ev3Delegate(object):
     """ Delegate that listens for responses from EV3. """
+    # initializing the sencsords that were needed for the Deligate class
 
     def __init__(self):
         self.mqtt_client = None
@@ -43,6 +39,7 @@ class Ev3Delegate(object):
 
         self.current_color_index = 0
 
+    # Drives a set distance
     def drive_inches(self, inches_target, speed_deg):
 
         inches_target = inches_target
@@ -55,6 +52,8 @@ class Ev3Delegate(object):
         speed_deg, stop_action='brake')
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
+
+    # Turns a specified amount
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
 
             self.left_motor.run_to_rel_pos(speed_sp=(turn_speed_sp),
@@ -65,9 +64,8 @@ class Ev3Delegate(object):
                                             stop_action='brake')
             self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
-    # DONE: Implement the Snatch3r class as needed when working the sandox
-            # exercises
-
+    # Not super needed but used for mobing the arm which is minimal in this
+    # code
     def arm_calibration(self):
         self.arm_motor.run_forever(speed_sp=900)
 
@@ -105,6 +103,8 @@ class Ev3Delegate(object):
         # motor
         ev3.Sound.beep().wait()
 
+    # Motor Movments
+
     def stop_motors(self):
         self.left_motor.stop(stop_action='brake')
         self.right_motor.stop(stop_action='brake')
@@ -134,9 +134,8 @@ class Ev3Delegate(object):
         while self.running:
             time.sleep(0.1)
 
+    # Shutting down
     def shutdown(self):
-        # Modify a variable that will allow the loop_forever method to end. Additionally stop motors and set LEDs green.
-        # The most important part of this method is given here, but you should add a bit more to stop motors, etc.
 
         self.running = False
         self.left_motor.stop_action(stop_action='brake')
@@ -148,6 +147,8 @@ class Ev3Delegate(object):
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
 
+
+    # Not currently in the code.
     def seek_beacon(self):
         beacon_seeker = ev3.BeaconSeeker(channel=1)
 
@@ -202,10 +203,13 @@ class Ev3Delegate(object):
 
             time.sleep(0.02)
 
+    # Plays chacha slide audio clip
     def play_song(self):
         ev3.Sound.play("/home/robot/csse120/projects/woodrc"
                        "/ChaCha.wav")
 
+    # Checks for detection of nearby objects with ir camera. Communicates
+    # back to PC
     def get_distance(self):
         distance = self.ir_sensor.proximity
         time.sleep(.01)
@@ -228,6 +232,7 @@ class Ev3Delegate(object):
 
 
 def main():
+    # Connects the delegates together
     print("Ready")
     robot_delegate = Ev3Delegate()
     mqtt_client = com.MqttClient(robot_delegate)

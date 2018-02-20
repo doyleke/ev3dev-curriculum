@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-" This ifle is the "
+" This file is the portion of the dance machine that runs on the pc "
 
 import tkinter
 from tkinter import ttk
@@ -10,11 +10,10 @@ import mqtt_remote_method_calls as com
 import math
 
 
+"This class is main method of communication from the ev3 to the pc "
 class MyDelegate(object):
-
-# Done: 3. Create a method named guess_response within MyDelegate.
-# guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
-# within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
+# This def suerees the ir camera to detect objects in front of it and makes
+# a print statment if it is bellow the threashold
     def lookaround(self, distance):
         current_distance = distance
         print(current_distance)
@@ -25,9 +24,7 @@ class MyDelegate(object):
 
 
 def main():
-    # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to
-    # receive any messages you do NOT need to have
-    # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
+    #This makes the primary tab in the GUI
 
     pc_delegate = MyDelegate()
     mqtt_client = com.MqttClient(pc_delegate)
@@ -36,6 +33,7 @@ def main():
     root = tkinter.Tk()
     root.title("MQTT Remote")
 
+    # Allows for multiple tabs
     notebook = ttk.Notebook(root)
 
     main_frame = ttk.Frame(root, padding=20, relief='raised')
@@ -55,15 +53,9 @@ def main():
     right_speed_entry.insert(0, "600")
     right_speed_entry.grid(row=1, column=2)
 
-    # TODO: 3. Implement the callbacks for the drive buttons. Set both the click and shortcut key callbacks.
-    #
-    # To help get you started the arm up and down buttons have been implemented.
-    # You need to implement the five drive buttons.  One has been writen below to help get you started but is commented
-    # out. You will need to change some_callback1 to some better name, then pattern match for other button / key combos.
-
+    #buttons commands for kui and keyboard
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
-    # forward_button and '<Up>' key is done for your here...
     forward_button['command'] = lambda: drive(mqtt_client,
                                                  left_speed_entry, right_speed_entry)
     root.bind('<Up>', lambda event: drive(mqtt_client, left_speed_entry,
@@ -71,25 +63,21 @@ def main():
 
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
-    # left_button and '<Left>' key
     left_button['command'] = lambda: turn_left(mqtt_client, left_speed_entry)
     root.bind('<Left>', lambda event: turn_left(mqtt_client, left_speed_entry))
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=3, column=1)
-    # stop_button and '<space>' key (note, does not need left_speed_entry, right_speed_entry)
     stop_button['command'] = lambda: stop_motors(mqtt_client)
     root.bind('<space>', lambda event: stop_motors(mqtt_client))
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
-    # right_button and '<Right>' key
     right_button['command'] = lambda: turn_right(mqtt_client, right_speed_entry)
     root.bind('<Right>', lambda event: turn_right(mqtt_client, right_speed_entry))
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
-    # back_button and '<Down>' key
     back_button['command'] = lambda: back(mqtt_client, left_speed_entry,
                                           right_speed_entry)
     root.bind('<Down>', lambda event: back(mqtt_client, left_speed_entry, right_speed_entry))
@@ -117,6 +105,7 @@ def main():
     dance_button.grid(row=0, column=1)
     dance_button['command'] = (lambda: dance_gui(mqtt_client, notebook, root))
 
+    # unused ir code
     # btn = ev3.Button()
     # rc1.on_red_up = lambda state: forward_left_motor(state, robot)
     # rc1.on_red_down = lambda state: back_left_motor(state, robot)
@@ -135,7 +124,7 @@ def main():
 # ----------------------------------------------------------------------
 # Tkinter callbacks
 # ----------------------------------------------------------------------
-# TODO: 4. Implement the functions for the drive button callbacks.
+# runs the motor according to the speeds
 def drive(mqtt_client, left_speed_entry, right_speed_entry):
     # print("heyo you made it to the callback")
     mqtt_client.send_message("motor_run",
@@ -143,21 +132,20 @@ def drive(mqtt_client, left_speed_entry, right_speed_entry):
                                  right_speed_entry.get())])
 
 
-# TODO: 5. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.  This is the final one!
-#
-# Observations you should make, you did basically this same program using the IR Remote, but your computer can be a
-# remote control that can do A LOT more than an IR Remote.  We are just doing the basics here.
 
 
 # Arm command callbacks
 def send_up(mqtt_client):
     print("arm_up")
     mqtt_client.send_message("arm_up")
+    #also turns of the machine
 
 
 def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
+    # Can only be executed if the arm was previosly up and the thoch button
+    # is not pressed
 
 
 def left_motor(mqtt_client, left_speed_entry):
@@ -199,6 +187,8 @@ def quit_program(mqtt_client, shutdown_ev3):
     mqtt_client.close()
     exit()
 
+# Makes the GUI tab for the dance moves
+# Dance moves are for the song Chacha slide by DJ Casper
 
 def dance_gui(mqtt_client, notebook, root):
     print("Dace Moves")
@@ -273,6 +263,8 @@ def dance_gui(mqtt_client, notebook, root):
 
 def clap(mqtt_client):
     looking(mqtt_client)
+    # The  closes  clapping action I could think of would also turn of the
+    # machine
     # mqtt_client.send_message("arm_up")
     # mqtt_client.send_message("arm_down")
     print("Clap")
@@ -387,6 +379,7 @@ def charlie_brown(mqtt_client):
 
 
 def looking(mqtt_client):
+    # Multiple instances are shown due to the inaccurity of the reading
     mqtt_client.send_message("get_distance")
     mqtt_client.send_message("get_distance")
     mqtt_client.send_message("get_distance")
@@ -395,6 +388,8 @@ def looking(mqtt_client):
 
 
 def dance(mqtt_client):
+    # this plays a portion of the chacha slide, in which the robot also
+    # dances to
     mqtt_client.send_message("play_song")
     time.sleep(.05)
     small_slide(mqtt_client, 'Left')
@@ -426,7 +421,7 @@ def dance(mqtt_client):
 
 
 def dancetwo(mqtt_client):
-    # mqtt_client.send_message("play_song")
+    # This is a different dance composed of various of the same moves.
     time.sleep(.05)
     slide(mqtt_client, 'Back')
     stomp(mqtt_client, 'Hop')
