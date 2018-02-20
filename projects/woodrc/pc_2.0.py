@@ -366,8 +366,6 @@ def reverse(mqtt_client):
     mqtt_client.send_message("turn_degrees", [50, 900])
 
 
-
-
 def charlie_brown(mqtt_client):
     print("Charlie Brown")
     mqtt_client.send_message("drive_inches", [2.5, 500])
@@ -378,6 +376,14 @@ def charlie_brown(mqtt_client):
     mqtt_client.send_message("drive_inches", [-2.5, 500])
 
 
+def looking(mqtt_client):
+    mqtt_client.send_message("get_distance")
+    mqtt_client.send_message("get_distance")
+    mqtt_client.send_message("get_distance")
+    mqtt_client.send_message("get_distance")
+    mqtt_client.send_message("get_distance")
+
+
 def dance(mqtt_client):
     small_slide(mqtt_client, 'Left')
     slide(mqtt_client, 'Back')
@@ -385,7 +391,7 @@ def dance(mqtt_client):
     stomp(mqtt_client, 'Hop')
     reverse(mqtt_client)
     reverse(mqtt_client)
-    mqtt_client.send_message("get_distance")
+
 
 
 
