@@ -40,8 +40,14 @@ class DataContainer(object):
                                        "/images/ev3_lego/progress_bar_100.bmp")
         self.teary_eyes = Image.open("/home/robot/csse120/assets"
                                      "/images/ev3_lego/eyes_tear.bmp")
-        self.black_eye = Image.open("/home/robot/csse120/assets"
-                                    "/images/ev3_lego/EV3_BMPs/Black eye.bmp")
+        self.accept = Image.open("/home/robot/csse120/assets"
+                                 "/images/ev3_lego/accept.bmp")
+        self.bomb = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Bomb.bmp")
+        self.boom = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Boom.bmp")
+        self.decline = Image.open("/home/robot/csse120"
+                                  "/assets/images/ev3_lego/Decline.bmp")
 
         self.dc = DataContainer
 
