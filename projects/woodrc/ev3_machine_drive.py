@@ -40,7 +40,7 @@ class Dance_Class(object):
         self.mqtt_client.close()
         # Copied from robot.shutdown
         print("Goodbye")
-        ev3.Sound.speak("Goodbye").wait()
+        self.music("Goodbye").wait()
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
 

@@ -26,25 +26,18 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 import tkinter
 from tkinter import ttk
-#import ev3dev.ev3 as ev3
-#import robot_controller_mine as robo
-#import time
+import ev3dev.ev3 as ev3
+import robot_controller_mine as robo
+import time
 import mqtt_remote_method_calls as com
-
-
-class MyDelegate(object):
-
-    def guess_response(self, string):
-        message_from_ev3 = string
-        print(message_from_ev3)
 
 
 def main():
     # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to
     # receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
-    my_delegate = MyDelegate()
-    mqtt_client = com.MqttClient(my_delegate)
+
+    mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -244,8 +237,6 @@ def dance_gui(mqtt_client, notebook, root):
     charlie_brown_button['command'] = (lambda: charlie_brown(mqtt_client))
 
 
-
-
 def clap(mqtt_client):
     print("Clap")
 
@@ -292,9 +283,9 @@ def crisscross(mqtt_client):
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
     mqtt_client.send_message("play_song")
-    print('cats')
     mqtt_client.send_message("drive_inches", [3, 300])
     mqtt_client.send_message("drive_inches", [-3, 300])
+
 
 
 
