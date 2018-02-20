@@ -4,6 +4,11 @@ from PIL import Image
 
 import robot_controller as robo
 
+import tkinter
+from tkinter import ttk
+
+import mqtt_remote_method_calls as com
+
 
 class DataContainer(object):
     # Helper class that might be useful to communicate between
@@ -51,6 +56,10 @@ class DataContainer(object):
 
         self.dc = DataContainer
 
+    def guess_response(self, string):
+        message_from_ev3 = string
+        print(message_from_ev3)
+
 
 def main():
     print("--------------------------------------------")
@@ -58,6 +67,13 @@ def main():
     print("--------------------------------------------")
 
     dc = DataContainer()
+
+    my_delegate = DataContainer()
+    mqtt_client = com.MqttClient(my_delegate)
+    mqtt_client.connect_to_ev3()
+
+    root = tkinter.Tk()
+    root.title("Escape")
 
     display_image(dc.lcd_screen, dc.eyes)
     ev3.Sound.speak("welcome we are happy you joined us today").wait()
