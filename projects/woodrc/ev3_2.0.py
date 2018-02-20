@@ -30,6 +30,7 @@ class GameMaster(object):
 
         self.mqtt_client.send_message["guess_response",
                                       distance]
+        return distance
 
     def loop_forever(self):
         btn = ev3.Button()

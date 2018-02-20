@@ -32,6 +32,7 @@ import time
 import mqtt_remote_method_calls as com
 import math
 
+
 class MyDelegate(object):
 
 # Done: 3. Create a method named guess_response within MyDelegate.
