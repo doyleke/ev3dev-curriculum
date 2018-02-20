@@ -271,6 +271,7 @@ def chacha(mqtt_client):
     mqtt_client.send_message("drive_inches", [-3, 300])
     mqtt_client.send_message("turn_degrees", [40, 300])
     mqtt_client.send_message("turn_degrees", [-20, 300])
+    print("Complete")
 
 
 def small_slide(mqtt_client, direction):
