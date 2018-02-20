@@ -101,9 +101,9 @@ def robot_takeover(dc):
 
     game()
 
+
 def game():
-
-
+    return
 
 
 main()
