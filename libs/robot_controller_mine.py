@@ -202,5 +202,6 @@ class Snatch3r(object):
         ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
         time.sleep(2)
 
-
+    def get_distance(self):
+         return self.ir_sensor.proximity
 
