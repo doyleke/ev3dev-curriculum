@@ -78,16 +78,28 @@ def game_guess(mqtt_client, r_unscrambled, o_unscrambled, y_unscrambled,
                g_unscrambled, b_unscrambled, p_unscrambled):
     if r_unscrambled == 'red':
         mqtt_client.send_message("leds_red")
+        mqtt_client.send_message("left_motor", '600')
+        mqtt_client.send_message("stop_motors")
     if o_unscrambled == 'orange':
         mqtt_client.send_message("leds_orange")
+        mqtt_client.send_message("right_motor", '600')
+        mqtt_client.send_message("stop_motors")
     if y_unscrambled == 'yellow':
         mqtt_client.send_message("leds_yellow")
+        mqtt_client.send_message("left_motor", '600')
+        mqtt_client.send_message("stop_motors")
     if g_unscrambled == 'green':
         mqtt_client.send_message("leds_green")
+        mqtt_client.send_message("right_motor", '600')
+        mqtt_client.send_message("stop_motors")
     if b_unscrambled == 'blue':
         mqtt_client.send_message("leds_blue")
+        mqtt_client.send_message("left_motor", '600')
+        mqtt_client.send_message("stop_motors")
     if p_unscrambled == 'purple':
         mqtt_client.send_message("leds_purple")
+        mqtt_client.send_message("right_motor", '600')
+        mqtt_client.send_message("stop_motors")
 
 
 
