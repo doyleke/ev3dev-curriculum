@@ -1,6 +1,6 @@
 import mqtt_remote_method_calls as com
 # import robot_controller_mine as robo
-import ev3dev as ev3
+import ev3dev.ev3 as ev3
 import time
 import math
 #
@@ -39,9 +39,9 @@ class Ev3Delegate(object):
         assert self.ir_sensor.connected
         # assert self.pixy
 
-        # self.led_colors = [ev3.Leds.BLACK, ev3.Leds.GREEN, ev3.Leds.RED]
+        self.led_colors = [ev3.Leds.BLACK, ev3.Leds.GREEN, ev3.Leds.RED]
 
-        # self.current_color_index = 0
+        self.current_color_index = 0
 
     def drive_inches(self, inches_target, speed_deg):
 
@@ -209,15 +209,25 @@ class Ev3Delegate(object):
     def get_distance(self):
          return self.ir_sensor.proximity
 
-    def loop_forever(self):
+    def loop_forever(self, mqtt_client):
         self.running = True
         while self.running:
             time.sleep(0.1)
+            if self.touch_sensor.is_pressed:
+                print("Goodbye!")
+                ev3.Sound.speak("Goodbye").wait()
+                mqtt_client.close()
+                break
+    def set_mqtt(self, mqtt_client):
+
+        # This code establishes a single mqtt_client that can be called in
+        # different function/ parts of code.
+        self.mqtt_client = mqtt_client
 
 
 def main():
     print("Ready")
-    robot_delegate = Ev3Delegate
+    robot_delegate = Ev3Delegate()
     mqtt_client = com.MqttClient(robot_delegate)
     robot_delegate.set_mqtt(mqtt_client)
     mqtt_client.connect_to_pc()
