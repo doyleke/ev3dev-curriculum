@@ -218,10 +218,8 @@ class Ev3Delegate(object):
                 ev3.Sound.speak("Goodbye").wait()
                 mqtt_client.close()
                 break
+                
     def set_mqtt(self, mqtt_client):
-
-        # This code establishes a single mqtt_client that can be called in
-        # different function/ parts of code.
         self.mqtt_client = mqtt_client
 
 
