@@ -200,7 +200,6 @@ class Snatch3r(object):
 
     def play_song(self):
         ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
-        print('dogs')
         time.sleep(2)
 
 
