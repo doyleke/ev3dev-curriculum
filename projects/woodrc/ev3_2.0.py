@@ -1,13 +1,43 @@
+# import mqtt_remote_method_calls as com
+# import robot_controller_mine as robo
+# import ev3dev as ev3
+
+import ev3dev.ev3 as ev3
+import time
+import random
+from PIL import Image
 import mqtt_remote_method_calls as com
-import robot_controller as robo
-import ev3dev as ev3
+
+# def main():
+#     robot = robo.Snatch3r()
+#     mqtt_client = com.MqttClient(robot)
+#     mqtt_client.connect_to_pc()
+#     # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus IP address of a GCP broker
+#     robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
+
+
+class GameMaster(object):
+    """ Delegate that listens for responses from EV3. """
+
+    def __init__(self):
+        self.mqtt_client = None
+        self.lcd = ev3.Screen()
+        self.ir_sensor = ev3.InfraredSensor()
+        self.running = False
+
+    def get_distance(self):
+        mqtt_client.send_message self.ir_sensor.proximity
+
+
 
 def main():
-    robot = robo.Snatch3r()
-    mqtt_client = com.MqttClient(robot)
+    print("Ready")
+    my_delegate = GameMaster()
+    mqtt_client = com.MqttClient(my_delegate)
+    my_delegate.mqtt_client = mqtt_client
     mqtt_client.connect_to_pc()
-    # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus IP address of a GCP broker
-    robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
+    # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus use EV3 as broker.
+    my_delegate.loop_forever()
 
 
 # ----------------------------------------------------------------------
