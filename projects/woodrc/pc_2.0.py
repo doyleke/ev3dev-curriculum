@@ -38,9 +38,11 @@ class MyDelegate(object):
 # Done: 3. Create a method named guess_response within MyDelegate.
 # guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
 # within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
-    def distance(self, distance):
-        message_from_ev3 = distance
-        return message_from_ev3
+    def lookaround(mqtt_client, distance):
+        current_distance = distance
+        print(current_distance)
+        if math.fabs(current_distance) < 10:
+            slide(mqtt_client, 'Back')
 
 
 def main():
@@ -386,11 +388,7 @@ def dance(mqtt_client):
     lookaround(mqtt_client)
 
 
-def lookaround(mqtt_client):
-    current_distance = mqtt_client.get.guess_response()
 
-    if math.fabs(current_distance) < 10:
-        mqtt_client.send_message("drive_inches", [-2, 900])
 
 
 

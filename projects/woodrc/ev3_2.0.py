@@ -207,7 +207,8 @@ class Ev3Delegate(object):
         time.sleep(2)
 
     def get_distance(self):
-         return self.ir_sensor.proximity
+        distance = self.ir_sensor.proximity
+        self.mqtt_client.send_message("distance", [distance])
 
     def loop_forever(self, mqtt_client):
         self.running = True
@@ -218,7 +219,7 @@ class Ev3Delegate(object):
                 ev3.Sound.speak("Goodbye").wait()
                 mqtt_client.close()
                 break
-                
+
     def set_mqtt(self, mqtt_client):
         self.mqtt_client = mqtt_client
 
