@@ -172,8 +172,6 @@ class Snatch3r(object):
                             return True
                         time.sleep(.01)
 
-
-
                 elif 2 < math.fabs(current_heading) <= 20:
 
                     print("current heading: ", current_heading)
@@ -194,11 +192,4 @@ class Snatch3r(object):
                     print("Heading too far off")
                     print("current heading:", current_heading)
 
-
-
             time.sleep(0.02)
-
-
-
-
-

@@ -4,6 +4,11 @@ from PIL import Image
 
 import robot_controller as robo
 
+import tkinter
+from tkinter import ttk
+
+import mqtt_remote_method_calls as com
+
 
 class DataContainer(object):
     # Helper class that might be useful to communicate between
@@ -40,10 +45,20 @@ class DataContainer(object):
                                        "/images/ev3_lego/progress_bar_100.bmp")
         self.teary_eyes = Image.open("/home/robot/csse120/assets"
                                      "/images/ev3_lego/eyes_tear.bmp")
-        self.black_eye = Image.open("EV3_BMPs/EV3_BMPs/Black eye.bmp")
+        self.accept = Image.open("/home/robot/csse120/assets"
+                                 "/images/ev3_lego/accept.bmp")
+        self.bomb = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Bomb.bmp")
+        self.boom = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Boom.bmp")
+        self.decline = Image.open("/home/robot/csse120"
+                                  "/assets/images/ev3_lego/Decline.bmp")
 
         self.dc = DataContainer
 
+    def guess_response(self, string):
+        message_from_ev3 = string
+        print(message_from_ev3)
 
 
 def main():
@@ -53,12 +68,51 @@ def main():
 
     dc = DataContainer()
 
+    my_delegate = DataContainer()
+    mqtt_client = com.MqttClient(my_delegate)
+    mqtt_client.connect_to_ev3()
+
     display_image(dc.lcd_screen, dc.eyes)
     ev3.Sound.speak("welcome we are happy you joined us today").wait()
     print("Press the touch sensor to exit this program.")
 
     robot = robo.Snatch3r()
     robot.pixy.mode = "SIG1"
+
+    root = tkinter.Tk()
+    root.title("Escape")
+
+    main_frame = ttk.Frame(root, padding=20, relief='raised')
+    main_frame.grid()
+
+    label = ttk.Label(main_frame,
+                      text='Look at the EV3, then enter a guess for the solution:')
+    label.grid(columnspan=2)
+
+    guess_entry = ttk.Entry(main_frame, width=8)
+    guess_entry.grid(row=2, column=0)
+
+    guess_button = ttk.Button(main_frame, text="Guess")
+    guess_button.grid(row=2, column=1)
+    guess_button['command'] = lambda: guess(mqtt_client, guess_entry)
+    root.bind('<Return>', lambda event: guess(mqtt_client, guess_entry))
+
+    num_dice_entry = ttk.Entry(main_frame, width=8)
+    num_dice_entry.grid(row=3, column=0)
+
+    num_dice_button = ttk.Button(main_frame, text="Set num dice")
+    num_dice_button.grid(row=3, column=1)
+    num_dice_button['command'] = lambda: game(mqtt_client, num_dice_entry)
+
+    q_button = ttk.Button(main_frame, text="Quit")
+    q_button.grid(row=4, column=0)
+    q_button['command'] = lambda: quit_program(mqtt_client, False)
+
+    e_button = ttk.Button(main_frame, text="Exit on EV3 too")
+    e_button.grid(row=4, column=1)
+    e_button['command'] = lambda: quit_program(mqtt_client, True)
+
+    root.mainloop()
 
     if robot.touch_sensor.is_pressed:
         robot_takeover(dc)
@@ -84,6 +138,14 @@ def display_image(lcd_screen, image):
     lcd_screen.update()
 
 
+def guess(mqtt_client, number_to_guess_entry):
+    """ Calls a method on EV3 called 'guess' passing in an
+    int from the number_to_guess_entry. """
+
+    mqtt_client.send_message("guess", [int(number_to_guess_entry.get())])
+    number_to_guess_entry.delete(0, 'end')
+
+
 def robot_takeover(dc):
 
     ev3.Sound.speak("why are you trying to shut me down")
@@ -99,11 +161,19 @@ def robot_takeover(dc):
     ev3.Leds.LEFT.RED()
     ev3.Leds.RIGHT.RED()
 
-    game()
+    game(dc.mqtt_client, dc.num_dice_entry)
 
 
-def game():
-    return
+def quit_program(mqtt_client, shutdown_ev3):
+    if shutdown_ev3:
+        mqtt_client.send_message("exit")
+    mqtt_client.close()
+    exit()
+
+
+def game(mqtt, dice):
+    print(mqtt)
+    print(dice)
 
 
 main()
