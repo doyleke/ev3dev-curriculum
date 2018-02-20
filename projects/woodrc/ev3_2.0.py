@@ -204,18 +204,19 @@ class Ev3Delegate(object):
 
     def play_song(self):
         ev3.Sound.play("/home/robot/csse120/projects/woodrc"
-                       "/Dj_Casper_Cha_Cha_Slide_Short"
-                       ".wav")
-        time.sleep(2)
+                       "/ChaCha.wav")
 
     def get_distance(self):
         distance = self.ir_sensor.proximity
+        time.sleep(.01)
         self.mqtt_client.send_message("lookaround", [distance])
 
     def loop_forever(self, mqtt_client):
         self.running = True
         while self.running:
             time.sleep(0.1)
+
+
             if self.touch_sensor.is_pressed:
                 print("Goodbye!")
                 ev3.Sound.speak("Goodbye").wait()

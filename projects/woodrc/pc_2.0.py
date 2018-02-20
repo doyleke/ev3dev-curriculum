@@ -1,29 +1,6 @@
 #!/usr/bin/env python3
-"""
-This module is the mini-project for the MQTT unit.  This module will be running on your PC and communicating with the
-m5_ev3_remote_drive.py module that is running on your EV3 (you have to write that module too, but it's easier).
-Only the Tkinter GUI has been made for you.  You will need to implement all of the MQTT communication.  The goal is to
-have a program running on your computer that can control the EV3.
+" This ifle is the "
 
-You will need to have the following features:
-  -- Clickable drive direction buttons to drive forward (up), backwards (down), left, right, and stop (space)
-    -- Keyboard shortcut keys that behave the same as clicking the buttons (this has already been wired up for you)
-  -- An entry box for the left and right drive motor speeds.
-    -- If both become set to 900 all of the drive direction buttons will go fast, for example forward goes 900 900
-    -- If both become set to 300 all of the drive direction buttons will go slower, for example reverse goes -300 -300
-    -- If 500 then left does -500 500, which causes the robot to spin left (use half speed -250 250 if too fast)
-    -- If set differently to say 600 left, 300 right the robot will drive and arc, for example forward goes 600 300
-  -- In addition to the drive features there needs to be a clickable button for Arm Up and Arm Down
-    -- There also need to be keyboard shortcut for Arm Up (u) and Arm Down (j).  Arm calibration is not required.
-
-  -- Finally you need 2 buttons for ending your program:
-    -- Quit, which stops only this program and allows the EV3 program to keep running
-    -- Exit, which sends a shutdown message to the EV3, then ends it's own program as well.
-
-You can start by running the code to see the GUI, but don't expect button clicks to do anything useful yet.
-
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 import tkinter
 from tkinter import ttk
 # import ev3dev.ev3 as ev3
@@ -42,7 +19,9 @@ class MyDelegate(object):
         current_distance = distance
         print(current_distance)
         if math.fabs(current_distance) < 10:
-            slide(self, 'Back')
+            print("Too close!")
+            # slide(self, 'Back')
+            time.sleep(.05)
 
 
 def main():
@@ -287,12 +266,20 @@ def dance_gui(mqtt_client, notebook, root):
     dance_button.grid(row=9, column=1)
     dance_button['command'] = (lambda: dance(mqtt_client))
 
+    dance_button2 = ttk.Button(dance_frame, text="Dance 2")
+    dance_button2.grid(row=10, column=1)
+    dance_button2['command'] = (lambda: dancetwo(mqtt_client))
+
 
 def clap(mqtt_client):
+    looking(mqtt_client)
+    # mqtt_client.send_message("arm_up")
+    # mqtt_client.send_message("arm_down")
     print("Clap")
 
 
 def slide(mqtt_client, direction):
+    looking(mqtt_client)
     if direction == 'Left':
         print('Slide to the ' + direction)
         mqtt_client.send_message("turn_degrees", [90, 900])
@@ -312,6 +299,8 @@ def slide(mqtt_client, direction):
 
 
 def stomp(mqtt_client, direction):
+    looking(mqtt_client)
+
     if direction == 'Left':
         print(direction + "foot. Lets stomp")
         mqtt_client.send_message("turn_degrees", [-20, 300])
@@ -331,6 +320,7 @@ def stomp(mqtt_client, direction):
 
 
 def chacha(mqtt_client):
+    looking(mqtt_client)
     print("Chacha real smooth!")
     mqtt_client.send_message("drive_inches", [2.5, 500])
     mqtt_client.send_message("turn_degrees", [10, 900])
@@ -348,6 +338,7 @@ def chacha(mqtt_client):
 
 
 def small_slide(mqtt_client, direction):
+    looking(mqtt_client)
     if direction == 'Left':
         print('To the ' + direction)
         mqtt_client.send_message("turn_degrees", [90, 900])
@@ -360,25 +351,31 @@ def small_slide(mqtt_client, direction):
         mqtt_client.send_message("turn_degrees", [-90, 900])
         mqtt_client.send_message("drive_inches", [2, 500])
         mqtt_client.send_message("turn_degrees", [90, 900])
+        time.sleep(1.5)
     else:
         print('Error!')
 
 
 def crisscross(mqtt_client):
+    looking(mqtt_client)
     print("Criss-Cross!")
-    mqtt_client.send_message("turn_degrees", [45, 900])
-    mqtt_client.send_message("turn_degrees", [-90, 900])
-    mqtt_client.send_message("turn_degrees", [45, 900])
+    mqtt_client.send_message("turn_degrees", [15, 900])
+    mqtt_client.send_message("turn_degrees", [-30, 900])
+    mqtt_client.send_message("turn_degrees", [15, 900])
+    time.sleep(.5)
 
 
 def reverse(mqtt_client):
+    looking(mqtt_client)
     print("Reverse! (Reverse!)")
-    mqtt_client.send_message("turn_degrees", [50, 900])
-    mqtt_client.send_message("turn_degrees", [-10, 900])
-    mqtt_client.send_message("turn_degrees", [50, 900])
+    mqtt_client.send_message("turn_degrees", [30, 900])
+    mqtt_client.send_message("turn_degrees", [-60, 900])
+    mqtt_client.send_message("turn_degrees", [30, 900])
+    time.sleep(.2)
 
 
 def charlie_brown(mqtt_client):
+    looking(mqtt_client)
     print("Charlie Brown")
     mqtt_client.send_message("drive_inches", [2.5, 500])
     mqtt_client.send_message("drive_inches", [-2.5, 500])
@@ -386,6 +383,7 @@ def charlie_brown(mqtt_client):
     mqtt_client.send_message("drive_inches", [-2.5, 500])
     mqtt_client.send_message("drive_inches", [2.5, 500])
     mqtt_client.send_message("drive_inches", [-2.5, 500])
+    time.sleep(.5)
 
 
 def looking(mqtt_client):
@@ -398,6 +396,7 @@ def looking(mqtt_client):
 
 def dance(mqtt_client):
     mqtt_client.send_message("play_song")
+    time.sleep(.05)
     small_slide(mqtt_client, 'Left')
     slide(mqtt_client, 'Back')
     stomp(mqtt_client, 'Hop')
@@ -411,19 +410,31 @@ def dance(mqtt_client):
     chacha(mqtt_client)
     chacha(mqtt_client)
     time.sleep(10)
-    small_slide(mqtt_client, 'Left')
+    # small_slide(mqtt_client, 'Left')
+    # slide(mqtt_client, 'Back')
+    # stomp(mqtt_client, 'Hop')
+    # stomp(mqtt_client, 'Hop')
+    # stomp(mqtt_client, 'Hop')
+    # stomp(mqtt_client, 'Hop')
+    # stomp(mqtt_client, 'Right')
+    # stomp(mqtt_client, 'Left')
+    # charlie_brown(mqtt_client)
+    # slide(mqtt_client, 'Right')
+    # slide(mqtt_client, 'Left')
+    # slide(mqtt_client, 'Back')
+    # chacha(mqtt_client)
+
+
+def dancetwo(mqtt_client):
+    # mqtt_client.send_message("play_song")
+    time.sleep(.05)
     slide(mqtt_client, 'Back')
     stomp(mqtt_client, 'Hop')
     stomp(mqtt_client, 'Hop')
-    stomp(mqtt_client, 'Hop')
-    stomp(mqtt_client, 'Hop')
-    stomp(mqtt_client, 'Right')
-    stomp(mqtt_client, 'Left')
-    charlie_brown(mqtt_client)
-    slide(mqtt_client, 'Right')
-    slide(mqtt_client, 'Left')
-    slide(mqtt_client, 'Back')
     chacha(mqtt_client)
+    chacha(mqtt_client)
+    time.sleep(10)
+
 
 
 
