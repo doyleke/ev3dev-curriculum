@@ -6,6 +6,8 @@ import random
 from PIL import Image
 import mqtt_remote_method_calls as com
 
+import robot_controller as robo
+
 
 class Game(object):
     # Helper class that might be useful to communicate between
@@ -150,6 +152,8 @@ class Game(object):
 # ----------------------------------------------------------------------
 # Helper Screen function for putting an image on the screen.
 # ----------------------------------------------------------------------
+
+
 def display_image(lcd_screen, image):
     """
     Helper function to put an image on the screen.  All images used with this
@@ -185,8 +189,15 @@ def main():
     game = Game()
 
     display_image(game.lcd_screen, game.eyes)
-    ev3.Sound.speak("welcome we are happy you joined us today").wait()
+    ev3.Sound.speak("welcome")
+    ev3.Sound.speak("we are glad you could join us").wait()
     print("Press the touch sensor to exit this program.")
+
+    robot = robo.Snatch3r()
+    mqtt_client = com.MqttClient(robot)
+    mqtt_client.connect_to_pc()
+    # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus IP address of a GCP broker
+    robot.loop_forever()
 
     my_delegate = Game()
     mqtt_client = com.MqttClient(my_delegate)

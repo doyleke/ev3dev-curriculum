@@ -1,7 +1,6 @@
 import time
 from PIL import Image
 
-import robot_controller as robo
 import ev3dev.ev3 as ev3
 
 import tkinter
@@ -30,9 +29,6 @@ def main():
     my_delegate = DataContainer()
     mqtt_client = com.MqttClient(my_delegate)
     mqtt_client.connect_to_ev3()
-
-    robot = robo.Snatch3r()
-    robot.pixy.mode = "SIG1"
 
     root = tkinter.Tk()
     root.title("Escape")
@@ -117,7 +113,7 @@ def main():
 
     root.mainloop()
 
-    if robot.touch_sensor.is_pressed:
+    if ev3.touch_sensor.is_pressed:
         robot_takeover(dc.eyes)
 
 
@@ -224,7 +220,6 @@ def back(mqtt_client, right_speed_entry, left_speed_entry):
 def stop_motors(mqtt_client):
     print("stop_motors")
     mqtt_client.send_message("stop_motors")
-
 
 
 def quit_program(mqtt_client, shutdown_ev3):
