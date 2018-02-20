@@ -44,22 +44,26 @@ class DataContainer(object):
         self.dc = DataContainer
 
 
-def main():
-    print("--------------------------------------------")
-    print(" Welcome")
-    print("--------------------------------------------")
-
-    dc = DataContainer()
-
-    display_image(dc.lcd_screen, dc.eyes)
-    ev3.Sound.speak("welcome we are happy you joined us today").wait()
-    print("Press the touch sensor to exit this program.")
-
-    robot = robo.Snatch3r()
-    robot.pixy.mode = "SIG1"
-
-    if robot.touch_sensor.is_pressed:
-        robot_takeover(dc)
+class GameRun(object):
+    def __init__(self):
+        self.mqtt_client = None
+        self.lcd = ev3.Screen()
+        self.num_active_dice = 5
+        self.max_die_value = 6
+        self.consecutive_correct = 0
+        self.dice_values = [0, 0, 0, 0, 0]
+        self.dice_images = [Image.open('/home/robot/csse120/assets/images/dice/none.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/one.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/two.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/three.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/four.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/five.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/six.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/seven.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/eight.bmp'),
+                            Image.open('/home/robot/csse120/assets/images/dice/nine.bmp')]
+        self.randomly_display_new_dice()
+        self.running = False
 
 
 # ----------------------------------------------------------------------
