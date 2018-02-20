@@ -63,6 +63,30 @@ class Snatch3r(object):
 
     # DONE: Implement the Snatch3r class as needed when working the sandox
             # exercises
+    def leds_red(self):
+        ev3.Leds.RIGHT(ev3.Leds.RED)
+        ev3.Leds.LEFT(ev3.Leds.RED)
+
+    def leds_orange(self):
+        ev3.Leds.RIGHT(ev3.Leds.ORANGE)
+        ev3.Leds.LEFT(ev3.Leds.ORANGE)
+
+    def leds_yellow(self):
+        ev3.Leds.RIGHT(ev3.Leds.YELLOW)
+        ev3.Leds.LEFT(ev3.Leds.YELLOW)
+
+    def leds_green(self):
+        ev3.Leds.RIGHT(ev3.Leds.GREEN)
+        ev3.Leds.LEFT(ev3.Leds.GREEN)
+
+    def leds_blue(self):
+        ev3.Leds.RIGHT(ev3.Leds.BLACK)
+        ev3.Leds.LEFT(ev3.Leds.BLACK)
+
+    def leds_purple(self):
+        ev3.Leds.RIGHT(ev3.Leds.AMBER)
+        ev3.Leds.LEFT(ev3.Leds.AMBER)
+
 
     def arm_calibration(self):
         self.arm_motor.run_forever(speed_sp=900)
