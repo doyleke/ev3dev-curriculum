@@ -18,11 +18,12 @@ import math
 #     robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
 
 
-class Ev3_Delegate(object):
+class Ev3Delegate(object):
     """ Delegate that listens for responses from EV3. """
 
     def __init__(self):
         self.mqtt_client = None
+        self.running = True
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
@@ -40,7 +41,7 @@ class Ev3_Delegate(object):
 
         # self.led_colors = [ev3.Leds.BLACK, ev3.Leds.GREEN, ev3.Leds.RED]
 
-        self.current_color_index = 0
+        # self.current_color_index = 0
 
     def drive_inches(self, inches_target, speed_deg):
 
@@ -208,10 +209,15 @@ class Ev3_Delegate(object):
     def get_distance(self):
          return self.ir_sensor.proximity
 
+    def loop_forever(self):
+        self.running = True
+        while self.running:
+            time.sleep(0.1)
+
 
 def main():
     print("Ready")
-    robot_delegate = Ev3_Delegate
+    robot_delegate = Ev3Delegate
     mqtt_client = com.MqttClient(robot_delegate)
     robot_delegate.set_mqtt(mqtt_client)
     mqtt_client.connect_to_pc()

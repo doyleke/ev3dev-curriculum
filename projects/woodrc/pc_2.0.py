@@ -26,7 +26,7 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 import tkinter
 from tkinter import ttk
-import ev3dev.ev3 as ev3
+# import ev3dev.ev3 as ev3
 #import robot_controller_mine as robo
 import time
 import mqtt_remote_method_calls as com
@@ -38,7 +38,7 @@ class MyDelegate(object):
 # Done: 3. Create a method named guess_response within MyDelegate.
 # guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
 # within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
-    def guess_response(self, distance):
+    def distance(self, distance):
         message_from_ev3 = distance
         return message_from_ev3
 
@@ -49,7 +49,7 @@ def main():
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
 
     pc_delegate = MyDelegate()
-    mqtt_client = com.MqttClient()
+    mqtt_client = com.MqttClient(pc_delegate)
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -144,7 +144,7 @@ def main():
 # ----------------------------------------------------------------------
 # TODO: 4. Implement the functions for the drive button callbacks.
 def drive(mqtt_client, left_speed_entry, right_speed_entry):
-    print("heyo you made it to the callback")
+    # print("heyo you made it to the callback")
     mqtt_client.send_message("motor_run",
                              [int(left_speed_entry.get()), int(
                                  right_speed_entry.get())])
