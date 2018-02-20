@@ -27,9 +27,10 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 import tkinter
 from tkinter import ttk
 import ev3dev.ev3 as ev3
-import robot_controller_mine as robo
+#import robot_controller_mine as robo
 import time
 import mqtt_remote_method_calls as com
+import math
 
 
 def main():
@@ -205,36 +206,61 @@ def dance_gui(mqtt_client, notebook, root):
     nb.grid()
 
     clap_button = ttk.Button(dance_frame, text="Clap")
-    clap_button.grid()
+    clap_button.grid(row=0, column=1)
     clap_button['command'] = (lambda: clap(mqtt_client))
 
-    slide_button = ttk.Button(dance_frame, text="Slide")
-    slide_button.grid()
-    slide_button['command'] = (lambda: slide(mqtt_client, 'Right'))
+    slide_buttonR = ttk.Button(dance_frame, text="Slide")
+    slide_buttonR.grid(row=1, column=2)
+    slide_buttonR['command'] = (lambda: slide(mqtt_client, 'Right'))
 
-    stomp_button = ttk.Button(dance_frame, text="Stomp")
-    stomp_button.grid()
-    stomp_button['command'] = (lambda: stomp(mqtt_client, 'Right'))
+    slide_buttonL = ttk.Button(dance_frame, text="Slide")
+    slide_buttonL.grid(row=1, column=0)
+    slide_buttonL['command'] = (lambda: slide(mqtt_client, 'Left'))
+
+    stomp_buttonL = ttk.Button(dance_frame, text="Stomp")
+    stomp_buttonL.grid(row=2, column=0)
+    stomp_buttonL['command'] = (lambda: stomp(mqtt_client, 'Left'))
+
+    stomp_buttonR = ttk.Button(dance_frame, text="Stomp")
+    stomp_buttonR.grid(row=2, column=2)
+    stomp_buttonR['command'] = (lambda: stomp(mqtt_client, 'Right'))
 
     chacha_button = ttk.Button(dance_frame, text="ChaCha")
-    chacha_button.grid()
+    chacha_button.grid(row=3, column=1)
     chacha_button['command'] = (lambda: chacha(mqtt_client))
 
-    small_slide_button = ttk.Button(dance_frame, text="SmallSlide")
-    small_slide_button.grid()
-    small_slide_button['command'] = (lambda: small_slide(mqtt_client, 'Left'))
+    small_slide_buttonL = ttk.Button(dance_frame, text="SmallSlide")
+    small_slide_buttonL.grid(row=4, column=0)
+    small_slide_buttonL['command'] = (lambda: small_slide(mqtt_client, 'Left'))
+
+    small_slide_buttonR = ttk.Button(dance_frame, text="SmallSlide")
+    small_slide_buttonR.grid(row=4, column=2)
+    small_slide_buttonR['command'] = (lambda: small_slide(mqtt_client,
+                                                          'Right'))
 
     crisscross_button = ttk.Button(dance_frame, text="Criss Cross")
-    crisscross_button.grid()
+    crisscross_button.grid(row=5, column=1)
     crisscross_button['command'] = (lambda: crisscross(mqtt_client))
 
     reverse_button = ttk.Button(dance_frame, text="Reverse")
-    reverse_button.grid()
+    reverse_button.grid(row=6, column=1)
     reverse_button['command'] = (lambda: reverse(mqtt_client))
 
     charlie_brown_button = ttk.Button(dance_frame, text="Charlie Brown")
-    charlie_brown_button.grid()
+    charlie_brown_button.grid(row=7, column=1)
     charlie_brown_button['command'] = (lambda: charlie_brown(mqtt_client))
+
+    charlie_brown_button = ttk.Button(dance_frame, text="Charlie Brown")
+    charlie_brown_button.grid(row=7, column=1)
+    charlie_brown_button['command'] = (lambda: charlie_brown(mqtt_client))
+
+    hop_button = ttk.Button(dance_frame, text="Hop")
+    hop_button.grid(row=8, column=1)
+    hop_button['command'] = (lambda: stomp(mqtt_client, 'Hop'))
+
+    dance_button = ttk.Button(dance_frame, text="Dance")
+    dance_button.grid(row=9, column=1)
+    dance_button['command'] = (lambda: dance(mqtt_client))
 
 
 def clap(mqtt_client):
@@ -244,10 +270,18 @@ def clap(mqtt_client):
 def slide(mqtt_client, direction):
     if direction == 'Left':
         print('Slide to the ' + direction)
+        mqtt_client.send_message("turn_degrees", [90, 900])
+        mqtt_client.send_message("drive_inches", [4, 900])
+        mqtt_client.send_message("turn_degrees", [-90, 900])
     elif direction == 'Right':
         print('Slide to the ' + direction)
+        mqtt_client.send_message("turn_degrees", [90, 900])
+        mqtt_client.send_message("drive_inches", [-4, 500])
+        mqtt_client.send_message("turn_degrees", [-90, 900])
     elif direction == 'Back':
         print('Tack it back now, Yall!')
+        mqtt_client.send_message("drive_inches", [-6, 500])
+        time.sleep(3)
     else:
         print('Error!')
 
@@ -255,49 +289,100 @@ def slide(mqtt_client, direction):
 def stomp(mqtt_client, direction):
     if direction == 'Left':
         print(direction + "foot. Lets stomp")
+        mqtt_client.send_message("turn_degrees", [-20, 300])
+        mqtt_client.send_message("turn_degrees", [20, 300])
     elif direction == 'Right':
         print(direction + "foot. Lets stomp")
+        mqtt_client.send_message("turn_degrees", [20, 300])
+        mqtt_client.send_message("turn_degrees", [-20, 300])
     elif direction == 'Hop':
+
         print('Hop')
+        mqtt_client.send_message("drive_inches", [1, 500])
+        mqtt_client.send_message("drive_inches", [-1, 500])
+        time.sleep(2)
     else:
         print('Error!')
 
 
 def chacha(mqtt_client):
     print("Chacha real smooth!")
-    mqtt_client.send_message("drive_inches", [3, 300])
-    mqtt_client.send_message("turn_degrees", [20, 300])
-    mqtt_client.send_message("turn_degrees", [-40, 300])
-    mqtt_client.send_message("drive_inches", [-3, 300])
-    mqtt_client.send_message("turn_degrees", [40, 300])
-    mqtt_client.send_message("turn_degrees", [-20, 300])
+    mqtt_client.send_message("drive_inches", [2.5, 500])
+    mqtt_client.send_message("turn_degrees", [10, 900])
+    mqtt_client.send_message("turn_degrees", [-20, 900])
+    mqtt_client.send_message("drive_inches", [-2.5, 500])
+    mqtt_client.send_message("turn_degrees", [20, 900])
+    mqtt_client.send_message("turn_degrees", [-10, 900])
+    mqtt_client.send_message("drive_inches", [2.5, 500])
+    mqtt_client.send_message("turn_degrees", [10, 900])
+    mqtt_client.send_message("turn_degrees", [-20, 900])
+    mqtt_client.send_message("drive_inches", [-2.5, 500])
+    mqtt_client.send_message("turn_degrees", [20, 900])
+    mqtt_client.send_message("turn_degrees", [-10, 900])
     print("Complete")
 
 
 def small_slide(mqtt_client, direction):
     if direction == 'Left':
         print('To the ' + direction)
+        mqtt_client.send_message("turn_degrees", [90, 900])
+        mqtt_client.send_message("drive_inches", [2, 500])
+        mqtt_client.send_message("turn_degrees", [-90, 900])
+        time.sleep(1.5)
+
     elif direction == 'Right':
         print('To the ' + direction)
+        mqtt_client.send_message("turn_degrees", [-90, 900])
+        mqtt_client.send_message("drive_inches", [2, 500])
+        mqtt_client.send_message("turn_degrees", [90, 900])
     else:
         print('Error!')
 
 
 def crisscross(mqtt_client):
     print("Criss-Cross!")
+    mqtt_client.send_message("turn_degrees", [45, 900])
+    mqtt_client.send_message("turn_degrees", [-90, 900])
+    mqtt_client.send_message("turn_degrees", [45, 900])
 
 
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
-    mqtt_client.send_message("drive_inches", [3, 300])
-    mqtt_client.send_message("drive_inches", [-3, 300])
+    mqtt_client.send_message("turn_degrees", [50, 900])
+    mqtt_client.send_message("turn_degrees", [-10, 900])
+    mqtt_client.send_message("turn_degrees", [50, 900])
 
 
 
 
 def charlie_brown(mqtt_client):
     print("Charlie Brown")
-    mqtt_client.send_message("")
+    mqtt_client.send_message("drive_inches", [2.5, 500])
+    mqtt_client.send_message("drive_inches", [-2.5, 500])
+    mqtt_client.send_message("drive_inches", [2.5, 500])
+    mqtt_client.send_message("drive_inches", [-2.5, 500])
+    mqtt_client.send_message("drive_inches", [2.5, 500])
+    mqtt_client.send_message("drive_inches", [-2.5, 500])
+
+
+def dance(mqtt_client):
+    small_slide(mqtt_client, 'Left')
+    slide(mqtt_client, 'Back')
+    stomp(mqtt_client, 'Hop')
+    stomp(mqtt_client, 'Hop')
+    reverse(mqtt_client)
+    reverse(mqtt_client)
+
+
+def lookaround(mqtt_client):
+    current_distance = mqtt_client.
+
+    if math.fabs(current_distance) < 10:
+        mqtt_client.send_message("drive_inches", [-2, 900])
+
+
+
+
 
 
 
