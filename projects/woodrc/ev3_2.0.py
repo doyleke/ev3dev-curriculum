@@ -208,7 +208,7 @@ class Ev3Delegate(object):
 
     def get_distance(self):
         distance = self.ir_sensor.proximity
-        self.mqtt_client.send_message("distance", [distance])
+        self.mqtt_client.send_message("lookaround", [distance])
 
     def loop_forever(self, mqtt_client):
         self.running = True
