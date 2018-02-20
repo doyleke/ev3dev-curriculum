@@ -385,9 +385,9 @@ def dance(mqtt_client):
     stomp(mqtt_client, 'Hop')
     reverse(mqtt_client)
     reverse(mqtt_client)
-    MyDelegate.lookaround(mqtt_client)
+    mqtt_client.send_message("get_distance")
 
-def lookaround(mqtt_client):
+
 
 
 
