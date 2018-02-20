@@ -32,15 +32,15 @@ import time
 import mqtt_remote_method_calls as com
 import math
 
-#
-# class MyDelegate(object):
-#
-# # Done: 3. Create a method named guess_response within MyDelegate.
-# # guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
-# # within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
-#     def guess_response(self, distance):
-#         message_from_ev3 = distance
-#         return message_from_ev3
+
+class MyDelegate(object):
+
+# Done: 3. Create a method named guess_response within MyDelegate.
+# guess_response needs to receive self and a string, feel free to call the string parameter message_from_ev3
+# within the body of the method print message_from_ev3.  That's it.  You simply need to hear what EV3 tells you.
+    def guess_response(self, distance):
+        message_from_ev3 = distance
+        return message_from_ev3
 
 
 def main():
@@ -48,7 +48,7 @@ def main():
     # receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
 
-    # pc_delegate = MyDelegate()
+    pc_delegate = MyDelegate()
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_ev3()
 
