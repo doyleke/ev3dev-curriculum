@@ -15,7 +15,6 @@ class Game(object):
         self.running = True
 
         self.mqtt_client = None
-        self.lcd = ev3.Screen()
         self.num_active_dice = 5
         self.max_die_value = 6
         self.consecutive_correct = 0
@@ -67,12 +66,12 @@ class Game(object):
         self.update_lcd()
 
     def update_lcd(self):
-        self.lcd.image.paste(self.accept, (5, 8))
-        self.lcd.image.paste(self.accept, (62, 8))
-        self.lcd.image.paste(self.accept, (119, 8))
-        self.lcd.image.paste(self.accept, (33, 66))
-        self.lcd.image.paste(self.accept, (91, 66))
-        self.lcd.update()
+        self.lcd_screen.image.paste(self.accept, (5, 8))
+        self.lcd_screen.image.paste(self.accept, (62, 8))
+        self.lcd_screen.image.paste(self.accept, (119, 8))
+        self.lcd_screen.image.paste(self.accept, (33, 66))
+        self.lcd_screen.image.paste(self.accept, (91, 66))
+        self.lcd_screen.update()
 
     def loop_forever(self):
         btn = ev3.Button()
@@ -182,15 +181,22 @@ def robot_takeover(dc):
 
 def main():
     print("Ready")
-    my_delegate = DataContainer()
+
+    game = Game()
+
+    display_image(game.lcd_screen, game.eyes)
+    ev3.Sound.speak("welcome we are happy you joined us today").wait()
+    print("Press the touch sensor to exit this program.")
+
+    my_delegate = Game()
     mqtt_client = com.MqttClient(my_delegate)
     my_delegate.mqtt_client = mqtt_client
     mqtt_client.connect_to_pc()
     # mqtt_client.connect_to_pc("35.194.247.175")  # Off campus use EV3 as broker.
     my_delegate.loop_forever()
     teary_eyes = Image.open("/home/robot/csse120/assets/images/ev3_lego/eyes_tear.bmp")
-    my_delegate.lcd.image.paste(teary_eyes, (0, 0))
-    my_delegate.lcd.update()
+    my_delegate.lcd_screen.image.paste(teary_eyes, (0, 0))
+    my_delegate.lcd_screen.update()
     print("If you ran via SSH and typed 'sudo chvt 6' earlier, don't forget to type")
     print("'sudo chvt 1' to get Brickman back after you finish this program.")
 
