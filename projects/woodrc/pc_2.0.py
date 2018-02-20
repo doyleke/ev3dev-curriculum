@@ -265,6 +265,13 @@ def stomp(mqtt_client, direction):
 
 def chacha(mqtt_client):
     print("Chacha real smooth!")
+    mqtt_client.send_message("drive_inches", [3, 300])
+    mqtt_client.send_message("turn_degrees", [20, 300])
+    mqtt_client.send_message("turn_degrees", [-40, 300])
+    mqtt_client.send_message("drive_inches", [-3, 300])
+    mqtt_client.send_message("turn_degrees", [40, 300])
+    mqtt_client.send_message("turn_degrees", [-20, 300])
+    print("Complete")
 
 
 def small_slide(mqtt_client, direction):
@@ -282,7 +289,6 @@ def crisscross(mqtt_client):
 
 def reverse(mqtt_client):
     print("Reverse! (Reverse!)")
-    mqtt_client.send_message("play_song")
     mqtt_client.send_message("drive_inches", [3, 300])
     mqtt_client.send_message("drive_inches", [-3, 300])
 
@@ -291,6 +297,7 @@ def reverse(mqtt_client):
 
 def charlie_brown(mqtt_client):
     print("Charlie Brown")
+    mqtt_client.send_message("")
 
 
 
