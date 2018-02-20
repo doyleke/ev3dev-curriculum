@@ -138,6 +138,18 @@ def main():
     dance_button.grid(row=0, column=1)
     dance_button['command'] = (lambda: dance_gui(mqtt_client, notebook, root))
 
+    # btn = ev3.Button()
+    # rc1.on_red_up = lambda state: forward_left_motor(state, robot)
+    # rc1.on_red_down = lambda state: back_left_motor(state, robot)
+    # rc1.on_blue_up = lambda state: forward_right_motor(state, robot)
+    # rc1.on_blue_down = lambda state: back_right_motor(state, robot)
+    # ev3.on_backspace = lambda state: handle_shutdown(state, dc)
+    #
+    # rc2.on_red_up = lambda state: handle_arm_up_button(state, robot)
+    # rc2.on_red_down = lambda state: handle_arm_down_button(state, robot)
+    # rc2.on_blue_up = lambda state: handle_calibrate_button(state, robot)
+    # rc2.on_blue_down = lambda state: handle_shutdown(state, dc)
+
     root.mainloop()
 
 
@@ -385,12 +397,35 @@ def looking(mqtt_client):
 
 
 def dance(mqtt_client):
+    mqtt_client.send_message("play_song")
     small_slide(mqtt_client, 'Left')
     slide(mqtt_client, 'Back')
     stomp(mqtt_client, 'Hop')
     stomp(mqtt_client, 'Hop')
     reverse(mqtt_client)
     reverse(mqtt_client)
+    slide(mqtt_client, 'Left')
+    slide(mqtt_client, 'Right')
+    reverse(mqtt_client)
+    reverse(mqtt_client)
+    chacha(mqtt_client)
+    chacha(mqtt_client)
+    time.sleep(10)
+    small_slide(mqtt_client, 'Left')
+    slide(mqtt_client, 'Back')
+    stomp(mqtt_client, 'Hop')
+    stomp(mqtt_client, 'Hop')
+    stomp(mqtt_client, 'Hop')
+    stomp(mqtt_client, 'Hop')
+    stomp(mqtt_client, 'Right')
+    stomp(mqtt_client, 'Left')
+    charlie_brown(mqtt_client)
+    slide(mqtt_client, 'Right')
+    slide(mqtt_client, 'Left')
+    slide(mqtt_client, 'Back')
+    chacha(mqtt_client)
+
+
 
 
 

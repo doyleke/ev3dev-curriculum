@@ -203,7 +203,9 @@ class Ev3Delegate(object):
             time.sleep(0.02)
 
     def play_song(self):
-        ev3.Sound.play("/home/robot/csse120/assets/sounds/awesome_pcm.wav")
+        ev3.Sound.play("/home/robot/csse120/projects/woodrc"
+                       "/Dj_Casper_Cha_Cha_Slide_Short"
+                       ".wav")
         time.sleep(2)
 
     def get_distance(self):
