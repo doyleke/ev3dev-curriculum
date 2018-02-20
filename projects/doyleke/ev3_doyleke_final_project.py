@@ -1,6 +1,7 @@
 import mqtt_remote_method_calls as com
 import robot_controller as robo
 import ev3dev.ev3 as ev3
+from PIL import Image
 
 
 class Game(object):
@@ -12,14 +13,14 @@ class Game(object):
 
         # Creates the one and only Screen object and prepares a
         # few Image objects.
-        # self.lcd_screen = ev3.Screen()
+        self.lcd_screen = ev3.Screen()
 
         # All of these images are exactly 178 by 128 pixels,
         # the exact screen resolution
         # They are made by Lego and ship with the Lego Mindstorm
         # EV3 Home Edition software
         # I found the in m3_ir_events_with_the_screen
-        """
+
         self.eyes = Image.open("/home/robot/csse120/assets"
                                "/images/ev3_lego/eyes_neutral.bmp")
         self.angry_eyes = Image.open("/home/robot/csse120/assets"
@@ -47,7 +48,7 @@ class Game(object):
                                "/images/ev3_lego/Boom.bmp")
         self.decline = Image.open("/home/robot/csse120"
                                   "/assets/images/ev3_lego/Decline.bmp")
-"""
+
 
 # ----------------------------------------------------------------------
 # Helper Screen function for putting an image on the screen.
@@ -72,26 +73,11 @@ def display_image(lcd_screen, image):
 
 
 def main():
-    print("Ready")
 
     robot = robo.Snatch3r()
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
-    print('connected')
     robot.loop_forever()
-
-
-def robot_takeover(game):
-    ev3.Sound.speak("why are you trying to shut me down")
-    display_image(game.lcd_screen, game.sad_eyes)
-    ev3.Leds.LEFT.BLUE()
-    ev3.Leds.RIGHT.BLUE()
-
-    for k in range(3):
-        ev3.Sound.speak("processing").wait(0.2)
-
-    ev3.Sound.speak("system over ride")
-    display_image(game.lcd_screen, game.angry_eyes)
 
 
 main()

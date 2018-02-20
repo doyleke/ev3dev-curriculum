@@ -3,6 +3,9 @@ from tkinter import ttk
 
 import mqtt_remote_method_calls as com
 
+from PIL import Image
+import time
+
 
 def main():
     # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to
@@ -13,7 +16,7 @@ def main():
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
-    root.title("TIME IS RUNNING OUT")
+    root.title("Part 1")
 
     main_frame = ttk.Frame(root, padding=20, relief='raised')
     main_frame.grid()
@@ -37,33 +40,35 @@ def main():
     y_unscrambled.grid(row=1, column=2)
 
     green_unscramble = ttk.Label(main_frame, text="reneg")
-    green_unscramble.grid(row=2, column=0)
+    green_unscramble.grid(row=3, column=0)
     g_unscrambled = ttk.Entry(main_frame, width=8)
     g_unscrambled.insert(0, "Guess")
-    g_unscrambled.grid(row=3, column=0)
+    g_unscrambled.grid(row=4, column=0)
 
     blue_unscramble = ttk.Label(main_frame, text="elub")
-    blue_unscramble.grid(row=2, column=1)
+    blue_unscramble.grid(row=3, column=1)
     b_unscrambled = ttk.Entry(main_frame, width=8)
     b_unscrambled.insert(0, "Guess")
-    b_unscrambled.grid(row=3, column=1)
+    b_unscrambled.grid(row=4, column=1)
 
     purple_unscramble = ttk.Label(main_frame, text="leuprp")
-    purple_unscramble.grid(row=2, column=2)
+    purple_unscramble.grid(row=3, column=2)
     p_unscrambled = ttk.Entry(main_frame, width=8, justify=tkinter.RIGHT)
     p_unscrambled.insert(0, "Guess")
-    p_unscrambled.grid(row=3, column=2)
+    p_unscrambled.grid(row=4, column=2)
 
 
-    # Buttons for quit and exit
-    q_button = ttk.Button(main_frame, text="Check")
-    q_button.grid(row=5, column=0)
-    q_button['command'] = (lambda: game_guess(mqtt_client, red_unscramble,
-                                              o_unscrambled, y_unscrambled,
-                                              g_unscrambled, b_unscrambled, p_unscrambled))
+    forward_button = ttk.Button(main_frame, text="Enter Guesses")
+    forward_button.grid(row=2, column=1)
+    # forward_button and '<Up>' key is done for your here...
+    forward_button['command'] = lambda: drive(mqtt_client,
+                                                 600, 600)
+    root.bind('<Up>', lambda event: drive(mqtt_client, 600,
+                                      600))
+
 
     e_button = ttk.Button(main_frame, text="Exit")
-    e_button.grid(row=5, column=2)
+    e_button.grid(row=5, column=1)
     e_button['command'] = (lambda: quit_program(mqtt_client, False))
 
     root.mainloop()
@@ -74,33 +79,39 @@ def main():
 # ----------------------------------------------------------------------
 
 
-def game_guess(mqtt_client, r_unscrambled, o_unscrambled, y_unscrambled,
-               g_unscrambled, b_unscrambled, p_unscrambled):
-    if r_unscrambled == 'red':
-        mqtt_client.send_message("leds_red")
-        mqtt_client.send_message("left_motor", '600')
-        mqtt_client.send_message("stop_motors")
-    if o_unscrambled == 'orange':
-        mqtt_client.send_message("leds_orange")
-        mqtt_client.send_message("right_motor", '600')
-        mqtt_client.send_message("stop_motors")
-    if y_unscrambled == 'yellow':
-        mqtt_client.send_message("leds_yellow")
-        mqtt_client.send_message("left_motor", '600')
-        mqtt_client.send_message("stop_motors")
-    if g_unscrambled == 'green':
-        mqtt_client.send_message("leds_green")
-        mqtt_client.send_message("right_motor", '600')
-        mqtt_client.send_message("stop_motors")
-    if b_unscrambled == 'blue':
-        mqtt_client.send_message("leds_blue")
-        mqtt_client.send_message("left_motor", '600')
-        mqtt_client.send_message("stop_motors")
-    if p_unscrambled == 'purple':
-        mqtt_client.send_message("leds_purple")
-        mqtt_client.send_message("right_motor", '600')
-        mqtt_client.send_message("stop_motors")
+def game_guess(mqtt_client):
+    # if r_unscrambled == 'red':
+    mqtt_client.send_message("leds_red")
+    mqtt_client.send_message("left_motor", '600')
+    mqtt_client.send_message("stop_motors")
+    # if o_unscrambled == 'orange':
+    mqtt_client.send_message("leds_orange")
+    mqtt_client.send_message("right_motor", '600')
+    mqtt_client.send_message("stop_motors")
+    # if y_unscrambled == 'yellow':
+    mqtt_client.send_message("leds_yellow")
+    mqtt_client.send_message("left_motor", '600')
+    mqtt_client.send_message("stop_motors")
+    # if g_unscrambled == 'green':
+    mqtt_client.send_message("leds_green")
+    mqtt_client.send_message("right_motor", '600')
+    mqtt_client.send_message("stop_motors")
+    # if b_unscrambled == 'blue':
+    mqtt_client.send_message("leds_blue")
+    mqtt_client.send_message("left_motor", '600')
+    mqtt_client.send_message("stop_motors")
+    # if p_unscrambled == 'purple':
+    mqtt_client.send_message("leds_purple")
+    mqtt_client.send_message("right_motor", '600')
+    mqtt_client.send_message("stop_motors")
 
+
+def drive(mqtt_client, left_speed, right_speed):
+        print("heyo you made it")
+        mqtt_client.send_message("motor_run", [left_speed,
+                                               right_speed])
+        time.wait(0.1)
+        mqtt_client.send_message("stop_motors")
 
 
 # Quit and Exit button callbacks
