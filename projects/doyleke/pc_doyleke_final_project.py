@@ -1,8 +1,8 @@
-import ev3dev.ev3 as ev3
-# import time
+import time
 from PIL import Image
 
 import robot_controller as robo
+import ev3dev.ev3 as ev3
 
 import tkinter
 from tkinter import ttk
@@ -16,43 +16,6 @@ class DataContainer(object):
 
     def __init__(self):
         self.running = True
-
-        # Creates the one and only Screen object and prepares a
-        # few Image objects.
-        self.lcd_screen = ev3.Screen()
-
-        # All of these images are exactly 178 by 128 pixels,
-        # the exact screen resolution
-        # They are made by Lego and ship with the Lego Mindstorm
-        # EV3 Home Edition software
-        # I found the in m3_ir_events_with_the_screen
-        self.eyes = Image.open("/home/robot/csse120/assets"
-                               "/images/ev3_lego/eyes_neutral.bmp")
-        self.angry_eyes = Image.open("/home/robot/csse120/assets"
-                                     "/images/ev3_lego/eyes_angry.bmp")
-        self.puppy_dog_eyes = Image.open("/home/robot/csse120/assets"
-                                         "/images/ev3_lego/"
-                                         "eyes_disappointed.bmp")
-        self.sad_eyes = Image.open("/home/robot/csse120/assets"
-                                   "/images/ev3_lego/eyes_hurt.bmp")
-        self.shifty_eyes = Image.open("/home/robot/csse120/assets"
-                                      "/images/ev3_lego/eyes_pinch_left.bmp")
-        self.progress_0 = Image.open("/home/robot/csse120/assets"
-                                     "/images/ev3_lego/progress_bar_0.bmp")
-        self.progress_50 = Image.open("/home/robot/csse120/assets"
-                                      "/images/ev3_lego/progress_bar_50.bmp")
-        self.progress_100 = Image.open("/home/robot/csse120/assets"
-                                       "/images/ev3_lego/progress_bar_100.bmp")
-        self.teary_eyes = Image.open("/home/robot/csse120/assets"
-                                     "/images/ev3_lego/eyes_tear.bmp")
-        self.accept = Image.open("/home/robot/csse120/assets"
-                                 "/images/ev3_lego/accept.bmp")
-        self.bomb = Image.open("/home/robot/csse120/assets"
-                               "/images/ev3_lego/Bomb.bmp")
-        self.boom = Image.open("/home/robot/csse120/assets"
-                               "/images/ev3_lego/Boom.bmp")
-        self.decline = Image.open("/home/robot/csse120"
-                                  "/assets/images/ev3_lego/Decline.bmp")
 
         self.dc = DataContainer
 

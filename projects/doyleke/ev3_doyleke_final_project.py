@@ -7,7 +7,7 @@ from PIL import Image
 import mqtt_remote_method_calls as com
 
 
-class DataContainer(object):
+class Game(object):
     # Helper class that might be useful to communicate between
     # different callbacks.
 
@@ -49,8 +49,16 @@ class DataContainer(object):
                                        "/images/ev3_lego/progress_bar_100.bmp")
         self.teary_eyes = Image.open("/home/robot/csse120/assets"
                                      "/images/ev3_lego/eyes_tear.bmp")
+        self.accept = Image.open("/home/robot/csse120/assets"
+                                 "/images/ev3_lego/accept.bmp")
+        self.bomb = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Bomb.bmp")
+        self.boom = Image.open("/home/robot/csse120/assets"
+                               "/images/ev3_lego/Boom.bmp")
+        self.decline = Image.open("/home/robot/csse120"
+                                  "/assets/images/ev3_lego/Decline.bmp")
 
-        self.dc = DataContainer
+        self.game = Game
 
     def randomly_display_new_dice(self):
         self.dice_values = [0, 0, 0, 0, 0]
@@ -59,11 +67,11 @@ class DataContainer(object):
         self.update_lcd()
 
     def update_lcd(self):
-        self.lcd.image.paste(self.dice_images[self.dice_values[0]], (5, 8))
-        self.lcd.image.paste(self.dice_images[self.dice_values[1]], (62, 8))
-        self.lcd.image.paste(self.dice_images[self.dice_values[2]], (119, 8))
-        self.lcd.image.paste(self.dice_images[self.dice_values[3]], (33, 66))
-        self.lcd.image.paste(self.dice_images[self.dice_values[4]], (91, 66))
+        self.lcd.image.paste(self.accept, (5, 8))
+        self.lcd.image.paste(self.accept, (62, 8))
+        self.lcd.image.paste(self.accept, (119, 8))
+        self.lcd.image.paste(self.accept, (33, 66))
+        self.lcd.image.paste(self.accept, (91, 66))
         self.lcd.update()
 
     def loop_forever(self):
